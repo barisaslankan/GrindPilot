@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "513741304395",
+    "project_id": "grindpilot",
+    "storage_bucket": "grindpilot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:513741304395:android:44396286f4b5ab735593ce",
+        "android_client_info": {
+          "package_name": "com.barisaslankan.grindpilot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "513741304395-c97srq0jc9n9v3nimja99q6jfgfcj0a3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barisaslankan.grindpilot",
+            "certificate_hash": "f130d3c86c83f8e00d9446d8d57ed4b780bc93d7"
+          }
+        },
+        {
+          "client_id": "513741304395-o7v0fjkrs5379djhe6ggd5elrgb440hi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGwWBArKsJr6084T7Uwx0u8LvlkBTRly0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "513741304395-o7v0fjkrs5379djhe6ggd5elrgb440hi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
