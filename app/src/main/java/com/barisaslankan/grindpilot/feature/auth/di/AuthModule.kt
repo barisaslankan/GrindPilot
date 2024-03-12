@@ -1,7 +1,7 @@
 package com.barisaslankan.grindpilot.feature.auth.di
 
-import com.barisaslankan.grindpilot.feature.auth.AuthRepository
-import com.barisaslankan.grindpilot.feature.auth.AuthRepositoryImpl
+import com.barisaslankan.grindpilot.feature.auth.repository.AuthRepository
+import com.barisaslankan.grindpilot.feature.auth.repository.AuthRepositoryImpl
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -34,7 +34,7 @@ object AuthModule {
     fun provideAuthRepository(
         firebaseFirestore: FirebaseFirestore,
         firebaseAuth: FirebaseAuth
-    ) : AuthRepository{
+    ) : AuthRepository {
         return AuthRepositoryImpl(
             firebaseAuth = firebaseAuth,
             firebaseDb = firebaseFirestore

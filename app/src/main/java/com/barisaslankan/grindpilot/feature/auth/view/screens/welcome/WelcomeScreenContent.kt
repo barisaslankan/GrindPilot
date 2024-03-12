@@ -1,6 +1,5 @@
-package com.barisaslankan.grindpilot.feature.auth.view.screens
+package com.barisaslankan.grindpilot.feature.auth.view.screens.welcome
 
-import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,8 +17,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonElevation
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
@@ -27,15 +24,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.R
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
 
 @Composable
-fun WelcomeScreen(){
-
-    //bunu contente aktar
+fun WelcomeScreenContent(
+    modifier: Modifier,
+    navigateToSignUp : () -> Unit,
+    authenticateWithGoogle : () -> Unit
+){
 
     Column(
         modifier = Modifier
@@ -66,17 +64,19 @@ fun WelcomeScreen(){
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
 
-            OutlinedButton(onClick = { /*TODO*/ },
+            OutlinedButton(
+                onClick = navigateToSignUp,
                 modifier= Modifier.size(80.dp),  //avoid the oval shape
                 shape = CircleShape,
                 border= BorderStroke(1.5.dp, Color.Gray),
                 contentPadding = PaddingValues(1.5.dp),  //avoid the little icon
                 colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.Gray)
             ) {
-                Icon(Icons.Default.Add, contentDescription = "content description")
+                Icon(painter = painterResource(id = R.drawable.icon_email), contentDescription = "email ")
             }
 
-            OutlinedButton(onClick = { /*TODO*/ },
+            OutlinedButton(
+                onClick = authenticateWithGoogle,
                 modifier= Modifier.size(80.dp),  //avoid the oval shape
                 shape = CircleShape,
                 border= BorderStroke(1.5.dp, Color.Gray),
@@ -85,7 +85,8 @@ fun WelcomeScreen(){
             ) {
                 Icon(Icons.Default.Add, contentDescription = "content description")
             }
-            OutlinedButton(onClick = { /*TODO*/ },
+            OutlinedButton(
+                onClick = { /*TODO*/ },
                 elevation = ButtonDefaults.buttonElevation(125.dp),
                 modifier= Modifier.size(80.dp),  //avoid the oval shape
                 shape = CircleShape,
@@ -99,10 +100,4 @@ fun WelcomeScreen(){
         }
 
     }
-}
-
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Composable
-fun WelcomeScreenPreview(){
-    WelcomeScreen()
 }
