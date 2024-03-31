@@ -24,12 +24,10 @@ class WelcomeViewModel @Inject constructor(
     }
 
     fun onSignInResult(result : Resource<User?>){
+        _state.value = WelcomeScreenState(isLoading = true, error = null)
         when(result){
             is Resource.Error -> {
-                _state.value = WelcomeScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-            }
-            is Resource.Loading -> {
-                _state.value = WelcomeScreenState(isLoading = true, error = null)
+                _state.value = WelcomeScreenState(isLoading = false, error = result.message)
             }
             is Resource.Success -> {
                 _state.value = WelcomeScreenState(user = result.data, isLoading = false, error = null)
@@ -47,10 +45,7 @@ class WelcomeViewModel @Inject constructor(
             val result = authRepository.addUserToDb(user)
             when(result){
                 is Resource.Error -> {
-                    _state.value = WelcomeScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = WelcomeScreenState(isLoading = true, error = null)
+                    _state.value = WelcomeScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = WelcomeScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)
@@ -65,10 +60,7 @@ class WelcomeViewModel @Inject constructor(
             val result = authRepository.getUserFromDb()
             when(result){
                 is Resource.Error -> {
-                    _state.value = WelcomeScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = WelcomeScreenState(isLoading = true, error = null)
+                    _state.value = WelcomeScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = WelcomeScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)

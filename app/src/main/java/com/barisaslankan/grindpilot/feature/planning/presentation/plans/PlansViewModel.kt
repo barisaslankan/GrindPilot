@@ -25,9 +25,10 @@ class PlansViewModel @Inject constructor(
     }
 
     private fun fetchPlans(){
-
+        _state.update {
+            it.copy(isLoading = true)
+        }
         planningRepository.fetchPlans().onEach { result ->
-
             when(result){
                 is Resource.Success -> {
                     _state.update {
@@ -37,11 +38,6 @@ class PlansViewModel @Inject constructor(
                 is Resource.Error  -> {
                     _state.update {
                         it.copy(isLoading = false, error = result.message)
-                    }
-                }
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(isLoading = true)
                     }
                 }
             }

@@ -51,18 +51,14 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserFromDb(): Resource<User> {
-        return try{
-            val documentSnapshot = firebaseDb.collection(DB_USERS).document(user!!.uid).get().await()
-            val id = documentSnapshot.getString("userId")!!
-            val email = documentSnapshot.getString("email")!!
-            val name = documentSnapshot.getString("name")
-
-            val user = User(id, email, name)
-            Resource.Success(data = user)
-        }catch(e:Exception){
-            Resource.Error(e.localizedMessage)
+        override suspend fun getUserFromDb(): Resource<User> {
+            return try{
+                val documentSnapshot = firebaseDb.collection(DB_USERS).document(user!!.uid).get().await()
+                val user = documentSnapshot.toObject(User::class.java)
+                Resource.Success(data = user!!)
+            }catch(e:Exception){
+                Resource.Error("Operation Failed: ${e.localizedMessage}")
+            }
         }
     }
-}
 

@@ -21,46 +21,30 @@ class CalendarRepositoryImpl @Inject constructor(
 
     val user = auth.currentUser
     override fun getPlans(): Flow<Resource<ArrayList<Plan>>>  = flow{
-
-        emit(Resource.Loading())
-
         try {
-
             val result = db.collection(DB_USERS).document(user!!.uid).collection(DB_PLANS).get().await()
             val planList = result.documents.mapNotNull {
                 it.toObject(Plan::class.java)
             }
-
             emit(Resource.Success(ArrayList(planList)))
-
         }catch (e : Exception){
-
-            emit(Resource.Error(e.localizedMessage?.toString() ?: "Something went wrong!"))
-
+            emit(Resource.Error("Operation Failed: ${e.localizedMessage}"))
         }
     }
 
     override fun getGoals(): Flow<Resource<ArrayList<Goal>>>  = flow{
-
-        emit(Resource.Loading())
-
         try {
-
             val result = db.collection(DB_USERS).document(user!!.uid).collection(DB_PLANS).get().await()
             val goalList = result.documents.mapNotNull {
                 it.toObject(Goal::class.java)
             }
-
             emit(Resource.Success(ArrayList(goalList)))
-
         }catch (e : Exception){
-
-            emit(Resource.Error(e.localizedMessage?.toString() ?: "Something went wrong!"))
+            emit(Resource.Error("Operation Failed: ${e.localizedMessage}"))
         }
     }
 
     override suspend fun uploadGoal(goal : Goal) : Resource<Goal>{
-
             return try{
                 db.collection(DB_USERS)
                     .document(user!!.uid)
@@ -68,13 +52,9 @@ class CalendarRepositoryImpl @Inject constructor(
                     .document(goal.id)
                     .set(goal)
                     .await()
-
                 Resource.Success(goal)
-
             }catch (e:Exception){
-
-                Resource.Error(e.localizedMessage?.toString() ?: "Something went wrong!")
-
+                Resource.Error("Operation Failed: ${e.localizedMessage}")
             }
         }
     }

@@ -32,10 +32,7 @@ class LoginViewModel @Inject constructor(
             val result = authRepository.signInWithEmailAndPassword(email,password)
             when(result){
                 is Resource.Error -> {
-                    _state.value = LoginScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = LoginScreenState(isLoading = true, error = null)
+                    _state.value = LoginScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = LoginScreenState(user = result.data!!, isLoading = false, error = null)
@@ -50,10 +47,7 @@ class LoginViewModel @Inject constructor(
             val result = authRepository.addUserToDb(user)
             when(result){
                 is Resource.Error -> {
-                    _state.value = LoginScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = LoginScreenState(isLoading = true, error = null)
+                    _state.value = LoginScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = LoginScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)
@@ -68,10 +62,7 @@ class LoginViewModel @Inject constructor(
             val result = authRepository.getUserFromDb()
             when(result){
                 is Resource.Error -> {
-                    _state.value = LoginScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = LoginScreenState(isLoading = true, error = null)
+                    _state.value = LoginScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = LoginScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)

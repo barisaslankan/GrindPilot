@@ -28,14 +28,10 @@ class SetGoalViewModel @Inject constructor(
     ){
         viewModelScope.launch {
             _state.value = SetGoalState(isLoading = true)
-
             val result = setGoalRepository.createGoal(name,progressType,tasks,workTime,totalWork)
             when(result){
                 is Resource.Error -> {
                     _state.value = SetGoalState(isLoading = false, error = result.message)
-                }
-                is Resource.Loading -> {
-                    _state.value = SetGoalState(isLoading = true)
                 }
                 is Resource.Success -> {
                     _state.value = SetGoalState(isLoading = false, error = null, goal = result.data)

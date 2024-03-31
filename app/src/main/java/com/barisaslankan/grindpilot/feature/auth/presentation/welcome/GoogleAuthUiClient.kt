@@ -17,7 +17,6 @@ import kotlin.coroutines.cancellation.CancellationException
 class GoogleAuthUiClient(
     private val oneTapClient: SignInClient
 ) {
-
     private val auth = Firebase.auth
 
     suspend fun signIn(): IntentSender? {
@@ -48,7 +47,7 @@ class GoogleAuthUiClient(
             if(e is CancellationException) throw e
             Resource.Error(
                 data = null,
-                message = e.message ?: "Something went wrong!"
+                message = e.message
             )
         }
     }
@@ -58,7 +57,6 @@ class GoogleAuthUiClient(
             oneTapClient.signOut().await()
             auth.signOut()
         } catch(e: Exception) {
-            e.printStackTrace()
             if(e is CancellationException) throw e
         }
     }

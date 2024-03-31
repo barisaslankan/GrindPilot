@@ -40,7 +40,6 @@ class SetGoalRepositoryImpl @Inject constructor(
         workTime: String,
         totalWork: Double
     ): Resource<Goal> {
-
         return try{
             val uuid = UUID.randomUUID().toString()
             val goal = Goal(

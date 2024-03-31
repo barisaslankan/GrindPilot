@@ -31,10 +31,7 @@ class SignUpViewModel @Inject constructor(
             val result = authRepository.createUserWithEmailAndPassword(email, password, repeatPassword)
             when(result){
                 is Resource.Error -> {
-                    _state.value = SignUpScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = SignUpScreenState(isLoading = true, error = "")
+                    _state.value = SignUpScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = SignUpScreenState(user = result.data!!, isLoading = false, error = "")
@@ -48,10 +45,7 @@ class SignUpViewModel @Inject constructor(
             val result = authRepository.addUserToDb(user)
             when(result){
                 is Resource.Error -> {
-                    _state.value = SignUpScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = SignUpScreenState(isLoading = true, error = null)
+                    _state.value = SignUpScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = SignUpScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)
@@ -66,10 +60,7 @@ class SignUpViewModel @Inject constructor(
             val result = authRepository.getUserFromDb()
             when(result){
                 is Resource.Error -> {
-                    _state.value = SignUpScreenState(isLoading = false, error = result.message ?: "Something went wrong!")
-                }
-                is Resource.Loading -> {
-                    _state.value = SignUpScreenState(isLoading = true, error = null)
+                    _state.value = SignUpScreenState(isLoading = false, error = result.message)
                 }
                 is Resource.Success -> {
                     _state.value = SignUpScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)

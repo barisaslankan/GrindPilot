@@ -28,9 +28,10 @@ class CreatePlanViewModel @Inject constructor(
     }
 
     private fun fetchGoals(){
-
+        _state.update {
+            it.copy(isLoading = true)
+        }
         planningRepository.fetchGoals().onEach { result ->
-
             when(result){
                 is Resource.Success -> {
                     _state.update {
@@ -42,35 +43,22 @@ class CreatePlanViewModel @Inject constructor(
                         it.copy(isLoading = false, error = result.message)
                     }
                 }
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(isLoading = true)
-                    }
-                }
             }
 
         }.launchIn(viewModelScope)
     }
 
     fun uploadPlan(plan : Plan){
-
         viewModelScope.launch {
-
             _state.update {
                 it.copy(isLoading = true)
             }
-
             val result = planningRepository.uploadPlan(plan)
 
             when(result){
                 is Resource.Error -> {
                     _state.update {
                         it.copy(isLoading = false, error = result.message)
-                    }
-                }
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(isLoading = true)
                     }
                 }
                 is Resource.Success -> {
@@ -89,7 +77,6 @@ class CreatePlanViewModel @Inject constructor(
             )
         }
     }
-
     fun removeGoalFromPlan(goal : Goal){
         _state.update {
             it.copy(
@@ -97,7 +84,6 @@ class CreatePlanViewModel @Inject constructor(
             )
         }
     }
-
     fun onPlanNameChanged(name : String){
         _state.update {
             it.copy(
@@ -105,5 +91,4 @@ class CreatePlanViewModel @Inject constructor(
             )
         }
     }
-
 }

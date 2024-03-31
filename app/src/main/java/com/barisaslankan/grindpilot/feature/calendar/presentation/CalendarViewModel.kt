@@ -22,19 +22,19 @@ class CalendarViewModel @Inject constructor(
     private val _state = MutableStateFlow(CalendarState())
     val state = _state.asStateFlow()
 
-     fun fetchPlans(){
+    init {
+        fetchPlans()
+    }
 
+     private fun fetchPlans(){
+         _state.update {
+             it.copy(isLoading = true)
+         }
          calendarRepository.getPlans().onEach {result ->
-
              when(result) {
                  is Resource.Error -> {
                      _state.update {
                          it.copy(isLoading = false, error = result.message)
-                     }
-                 }
-                 is Resource.Loading -> {
-                     _state.update {
-                         it.copy(isLoading = true, error = null)
                      }
                  }
                  is Resource.Success -> {
@@ -47,63 +47,4 @@ class CalendarViewModel @Inject constructor(
          }.launchIn(viewModelScope)
 
     }
-
-    fun fetchGoals(){
-
-        calendarRepository.getGoals().onEach {result ->
-
-            when(result) {
-                is Resource.Error -> {
-                    _state.update {
-                        it.copy(isLoading = false, error = result.message)
-                    }
-                }
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(isLoading = true, error = null)
-                    }
-                }
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(isLoading = false, error = null, goals = result.data)
-                    }
-                }
-            }
-
-        }.launchIn(viewModelScope)
-
-    }
-
-    fun uploadGoal(goal:Goal){
-
-        viewModelScope.launch {
-
-            _state.update {
-                it.copy(isLoading = true)
-            }
-
-            val result = calendarRepository.uploadGoal(goal)
-
-            when(result){
-                is Resource.Error -> {
-                    _state.update {
-                        it.copy(isLoading = false, error = result.message)
-                    }
-                }
-                is Resource.Loading -> {
-                    _state.update {
-                        it.copy(isLoading = true, error = null)
-                    }
-                }
-                is Resource.Success -> {
-                    _state.update {
-                        it.copy(isLoading = false, error = null)
-                    }
-                }
-            }
-
-        }
-
-    }
-
 }

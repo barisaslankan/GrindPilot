@@ -22,7 +22,6 @@ class PlanningRepositoryImpl @Inject constructor(
     val user = auth.currentUser
 
     override fun fetchGoals(): Flow<Resource<ArrayList<Goal>>> = flow {
-        emit(Resource.Loading())
         try {
            val result = db.collection(DB_USERS).document(user!!.uid).collection(DB_GOALS).get().await()
 
@@ -39,7 +38,6 @@ class PlanningRepositoryImpl @Inject constructor(
     }
 
     override fun fetchPlans(): Flow<Resource<ArrayList<Plan>>> = flow{
-        emit(Resource.Loading())
         try {
             val result = db.collection(DB_USERS).document(user!!.uid).collection(DB_PLANS).get().await()
 
