@@ -71,6 +71,7 @@ fun SetGoalScreen(
         onBackPressed = onBackPressed,
         onProgressTypeExpandedChanged = {isExpanded ->
             viewModel.onProgressTypeExpandedChanged(isExpanded)
-        }
+        },
+        createTask = {}
     )
 }

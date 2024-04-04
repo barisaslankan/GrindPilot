@@ -50,7 +50,7 @@ fun SetUpNavGraph(
         )
         calendarRoute(
             navigateToSetGoal = {
-                navController.navigate(Screen.CreatePlanScreen.route)
+                navController.navigate(Screen.SetGoalScreen.route)
             },
             navigateToPlans = {
                 navController.navigate(Screen.PlansScreen.route)

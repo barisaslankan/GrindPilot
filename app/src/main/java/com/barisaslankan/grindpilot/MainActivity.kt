@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
 
                         }
                     },
-                    startDestination = Screen.WelcomeScreen.route,
+                    startDestination = Screen.CalendarScreen.route,
                     navController = navController
                 )
             }

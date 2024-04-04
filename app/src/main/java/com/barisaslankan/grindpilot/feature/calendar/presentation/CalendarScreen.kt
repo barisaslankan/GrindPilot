@@ -40,6 +40,8 @@ fun CalendarScreen(
         modifier = Modifier
             .fillMaxWidth(),
             state.goals ?: arrayListOf(),
-        datePickerState = datePickerState
+        datePickerState = datePickerState,
+        navigateToPlans = navigateToPlans,
+        navigateToSetGoal = navigateToSetGoal
     )
 }

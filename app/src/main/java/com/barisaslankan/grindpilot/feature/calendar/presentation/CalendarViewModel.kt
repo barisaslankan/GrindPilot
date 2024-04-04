@@ -43,8 +43,6 @@ class CalendarViewModel @Inject constructor(
                      }
                  }
              }
-
          }.launchIn(viewModelScope)
-
     }
 }

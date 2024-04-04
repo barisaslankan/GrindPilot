@@ -117,7 +117,9 @@ fun CreatePlanScreenContent(
                 ),
                 //colors = OutlinedTextFieldDefaults.colors().copy(focusedLabelColor = OrangeGP),
                 label = {
-                    Text(text = "Plan name", style = TextStyle(
+                    Text(
+                        text = "Plan name",
+                        style = TextStyle(
                         fontStyle = Typography.labelSmall.fontStyle,
                         color = TextColor
                     ))

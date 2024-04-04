@@ -2,6 +2,7 @@
 
 package com.barisaslankan.grindpilot.feature.set_goal.presentation
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,7 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -29,14 +31,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.barisaslankan.grindpilot.core.composables.IconButtonWithText
 import com.barisaslankan.grindpilot.feature.set_goal.presentation.components.TaskItem
 import com.barisaslankan.grindpilot.model.ProgressType
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
@@ -63,7 +70,8 @@ fun SetGoalContent(
     onTotalWorkChanged : (String) -> Unit,
     onGoalSaved : () -> Unit,
     onTaskRemoved : (String) -> Unit,
-    onBackPressed : () -> Unit
+    onBackPressed : () -> Unit,
+    createTask :() -> Unit
 ){
 
     Box(
@@ -82,7 +90,8 @@ fun SetGoalContent(
         ) {
 
             Row(
-                modifier = modifier
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
                     colors = (IconButtonColors(
@@ -98,6 +107,14 @@ fun SetGoalContent(
                         contentDescription = "Back Button"
                     )
                 }
+                Spacer(modifier = modifier.weight(1f))
+
+                Text(
+                    text = "Create Goal",
+                    style = Typography.titleMedium,
+                    color = OrangeGP
+                )
+
                 Spacer(modifier = modifier.weight(1f))
 
                 IconButton(
@@ -124,12 +141,7 @@ fun SetGoalContent(
                 shape = RoundedCornerShape(16.dp),
                 value = goalName,
                 onValueChange = onGoalNameChanged,
-                textStyle = TextStyle(fontStyle = Typography.titleLarge.fontStyle, color = TextColor)
-            )
-
-            Text(
-                text = "Goal Volume",
-                style = TextStyle(fontStyle = Typography.titleLarge.fontStyle, color = TextColor),
+                textStyle = TextStyle(fontStyle = Typography.bodyMedium.fontStyle),
             )
 
             Row(
@@ -158,36 +170,15 @@ fun SetGoalContent(
 
             Row(
                 modifier = modifier,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                OutlinedTextField(
-                    shape = RoundedCornerShape(16.dp),
-                    value = task,
-                    onValueChange = onTaskChanged,
-                    textStyle = TextStyle(fontStyle = Typography.titleLarge.fontStyle, color = TextColor)
+                IconButtonWithText(
+                    onClick = createTask,
+                    icon = Icons.Default.Add,
+                    text = "Add Task",
+                    color = OrangeGP
                 )
-
-                IconButton(
-                    colors = IconButtonColors(
-                        containerColor = OrangeGP,
-                        contentColor = BackgroundColor,
-                        disabledContentColor = BackgroundColor,
-                        disabledContainerColor = OrangeGP
-                    ),
-                    onClick = { onTaskAdded(task) })
-                {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = "Add task button"
-                    )
-                }
             }
-
-            Text(
-                text = "Selected Tasks:",
-                style = TextStyle(fontStyle = Typography.titleLarge.fontStyle),
-                color = TextColor
-            )
 
             LazyColumn(
                 modifier = Modifier.weight(1f),
@@ -287,7 +278,7 @@ fun SetGoalContentPreview(){
         isTimePickerExtended = false,
         onProgressTypeExpandedChanged = {},
         dismissTimePicker = {},
-        goalName = "GoalName",
+        goalName = "Goal Name",
         onGoalNameChanged = {},
         onProgressTypeChanged = {},
         onTaskAdded = {},
@@ -303,6 +294,7 @@ fun SetGoalContentPreview(){
             "Task1", "Task2", "Task3"
         ),
         onTaskRemoved = {},
-        onBackPressed = {}
+        onBackPressed = {},
+        createTask = {}
     )
 }

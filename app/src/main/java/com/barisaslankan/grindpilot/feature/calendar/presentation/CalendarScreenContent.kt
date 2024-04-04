@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.feature.calendar.presentation.components.CalendarDayItem
@@ -47,7 +48,9 @@ import com.kizitonwose.calendar.compose.VerticalCalendar
 fun CalendarScreenContent(
     modifier: Modifier,
     goals : ArrayList<Goal>,
-    datePickerState: DatePickerState
+    datePickerState: DatePickerState,
+    navigateToPlans : () -> Unit,
+    navigateToSetGoal : () -> Unit
 ){
     Box(
         modifier = modifier
@@ -74,14 +77,14 @@ fun CalendarScreenContent(
                         disabledContentColor = OrangeGP,
                         disabledContainerColor = BackgroundColor
                     )),
-                    onClick = { },
+                    onClick = navigateToPlans,
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.List,
-                        contentDescription = "Back Button"
+                        contentDescription = "Plans Button"
                     )
                 }
-                Spacer(modifier = modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(16.dp))
 
                 IconButton(
                     colors = (
@@ -91,7 +94,7 @@ fun CalendarScreenContent(
                                 disabledContentColor = OrangeGP,
                                 disabledContainerColor = BackgroundColor
                             )),
-                    onClick = {},
+                    onClick = navigateToSetGoal,
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,
@@ -99,7 +102,6 @@ fun CalendarScreenContent(
                     )
                 }
             }
-
 
             Box(
                 modifier = modifier
@@ -145,6 +147,7 @@ fun CalendarScreenContent(
                     }
                 } else Text(
                     modifier = modifier.align(Alignment.Center),
+                    textAlign = TextAlign.Center,
                     text = "No plan to be displayed",
                     style = TextStyle(
                         fontStyle = Typography.titleLarge.fontStyle,
@@ -207,6 +210,8 @@ fun CalendarScreenPreview(){
                 "",
                 100.0
             )
-        )
+        ),
+        navigateToPlans = {},
+        navigateToSetGoal = {}
     )
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
@@ -40,23 +41,23 @@ fun TaskItem(
                 color = OrangeGP,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clip(RoundedCornerShape(16.dp))
-            .background(BackgroundColor)
     ) {
-
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
             Text(
                 text = task,
-                style = TextStyle(fontStyle = Typography.bodyMedium.fontStyle, color = TextColor)
+                style = TextStyle(
+                    fontStyle = Typography.bodyMedium.fontStyle,
+                    color = TextColor
+                )
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            OutlinedIconButton(
+            IconButton(
                 onClick = { onTaskRemoved(task) },
                 colors = IconButtonColors(
                     containerColor = BackgroundColor,
@@ -64,7 +65,6 @@ fun TaskItem(
                     disabledContainerColor = BackgroundColor,
                     disabledContentColor = OrangeGP,
                 ),
-                border = BorderStroke(width = 1.dp, color = OrangeGP)
             ){
                 Icon(
                     imageVector = Icons.Default.Clear,
