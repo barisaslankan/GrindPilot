@@ -37,11 +37,6 @@ fun SignUpScreen(
 
     LaunchedEffect(key1 = state.user) {
         if(state.user != null) {
-            Toast.makeText(
-                context,
-                "Sign in successful",
-                Toast.LENGTH_LONG
-            ).show()
             if(!state.userFromDb){
                 signUpViewModel.addUserToDb(state.user!!)
             }

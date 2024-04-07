@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.model.Goal
 import com.barisaslankan.grindpilot.model.ProgressType
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.ui.theme.TextColor
 
 @Composable
 fun PlanTemplate(
@@ -27,12 +29,12 @@ fun PlanTemplate(
     Box(modifier = modifier.fillMaxWidth()
         .border(
             width = 1.dp,
-            color = OrangeGP,
+            color = TextColor,
             shape = RoundedCornerShape(16.dp)
         )) {
 
         LazyColumn(
-            contentPadding = PaddingValues(all = 8.dp),
+            modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -40,7 +42,6 @@ fun PlanTemplate(
                 GoalItem(
                     goal = goal,
                     addGoalToPlan = addGoalToPlan,
-                    isAdded = true,
                     removeGoalFromPlan = removeGoalFromPlan
                 )
             }

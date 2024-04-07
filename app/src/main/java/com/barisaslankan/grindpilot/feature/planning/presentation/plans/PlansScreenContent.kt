@@ -30,6 +30,8 @@ import com.barisaslankan.grindpilot.feature.planning.presentation.plans.componen
 import com.barisaslankan.grindpilot.model.Goal
 import com.barisaslankan.grindpilot.model.ProgressType
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.LARGE_PADDING
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.ui.theme.TextColor
 
@@ -46,7 +48,7 @@ fun PlansScreenContent(
             .background(BackgroundColor)
     ) {
         Column(
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(MEDIUM_PADDING)
         ) {
 
             Row(
@@ -86,10 +88,10 @@ fun PlansScreenContent(
                 }
             }
 
-            Spacer(modifier = modifier.height(16.dp))
+            Spacer(modifier = modifier.height(LARGE_PADDING))
 
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(plans ?: arrayListOf()) { plan ->

@@ -6,6 +6,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
@@ -61,7 +62,7 @@ class MainActivity : ComponentActivity() {
 
                         }
                     },
-                    startDestination = Screen.CalendarScreen.route,
+                    startDestination = Screen.WelcomeScreen.route,
                     navController = navController
                 )
             }

@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Text
@@ -33,17 +34,11 @@ fun GoalItem(
     goal : Goal,
     addGoalToPlan: (goal : Goal) -> Unit,
     removeGoalFromPlan: (goal : Goal) -> Unit,
-    isAdded : Boolean
 ){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                color = OrangeGP,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
 
         Row(
@@ -55,17 +50,10 @@ fun GoalItem(
            Text(
                modifier = Modifier.weight(1f),
                text = goal.name,
-               style = TextStyle(
-                   fontStyle = Typography.titleLarge.fontStyle,
-                   color = OrangeGP
-               )
+               style = Typography.bodyMedium,
+               color = OrangeGP
            )
-            if(isAdded)
-            OutlinedIconButton(
-                border = BorderStroke(
-                    width = 1.dp,
-                    color = OrangeGP
-                ),
+            IconButton(
                 onClick ={ addGoalToPlan(goal) },
                 colors = IconButtonColors(
                     containerColor = BackgroundColor,
@@ -76,30 +64,9 @@ fun GoalItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Clear,
-                    contentDescription = "Add Goal to Plan Button",
+                    contentDescription = "Remove Goal from Plan Button",
                 )
-
             }
-            else
-                OutlinedIconButton(
-                    border = BorderStroke(
-                        width = 1.dp,
-                        color = OrangeGP
-                    ),
-                    onClick ={ removeGoalFromPlan(goal) },
-                    colors = IconButtonColors(
-                        containerColor = BackgroundColor,
-                        contentColor = OrangeGP,
-                        disabledContentColor = OrangeGP,
-                        disabledContainerColor = OrangeGP
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Remove Goal from Plan Button",
-                    )
-
-                }
         }
     }
 }
@@ -108,7 +75,6 @@ fun GoalItem(
 @Preview()
 fun GoalItemPreview(){
     GoalItem(
-        isAdded = true,
         goal = Goal(
             "",
             "",

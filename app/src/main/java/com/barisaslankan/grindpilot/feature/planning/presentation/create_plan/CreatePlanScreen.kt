@@ -74,7 +74,15 @@ fun CreatePlanScreen(
             onBackButtonClicked = onBackButtonClicked,
             removeGoalFromPlan = {goal ->
                 viewModel.removeGoalFromPlan(goal)
-            }
+            },
+            onDurationTypeChanged = {},
+            isDurationTypeExpanded = false,
+            durationText = "",
+            onDurationTextChanged = {},
+            selectedDays = arrayListOf(),
+            onDayPicked = {},
+            listGoals = {},
+            onDurationTypeExpandedChanged = {}
         )
     }
 }

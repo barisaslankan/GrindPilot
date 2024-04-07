@@ -28,20 +28,19 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.feature.calendar.presentation.components.CalendarDayItem
 import com.barisaslankan.grindpilot.feature.calendar.presentation.components.CalendarItem
 import com.barisaslankan.grindpilot.model.Goal
 import com.barisaslankan.grindpilot.model.ProgressType
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.ui.theme.Typography
 import com.kizitonwose.calendar.compose.VerticalCalendar
-
-//import io.github.boguszpawlowski.composecalendar.SelectableCalendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,8 +59,8 @@ fun CalendarScreenContent(
 
         Column(
             modifier = modifier
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(MEDIUM_PADDING),
+            verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING)
         ) {
 
             Row(
@@ -84,7 +83,7 @@ fun CalendarScreenContent(
                         contentDescription = "Plans Button"
                     )
                 }
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(MEDIUM_PADDING))
 
                 IconButton(
                     colors = (
@@ -108,8 +107,8 @@ fun CalendarScreenContent(
                     .fillMaxWidth()
                     .border(
                         color = OrangeGP,
-                        width = 1.5.dp,
-                        shape = RoundedCornerShape(16.dp)
+                        width = MEDIUM_BORDER_WIDTH,
+                        shape = RoundedCornerShape(MEDIUM_PADDING)
                     )
                     .weight(2.5f),
                 contentAlignment = Alignment.Center,
@@ -126,17 +125,16 @@ fun CalendarScreenContent(
                     .fillMaxWidth()
                     .border(
                         color = OrangeGP,
-                        width = 1.5.dp,
-                        shape = RoundedCornerShape(16.dp)
+                        width = MEDIUM_BORDER_WIDTH,
+                        shape = RoundedCornerShape(MEDIUM_PADDING)
                     )
                     .weight(5f)
             ) {
 
                 if(goals.size>0)
-
                     LazyColumn(
-                    contentPadding = PaddingValues(all = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(all = SMALL_PADDING),
+                    verticalArrangement = Arrangement.spacedBy(SMALL_PADDING),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     items(goals) { goal ->
@@ -149,10 +147,8 @@ fun CalendarScreenContent(
                     modifier = modifier.align(Alignment.Center),
                     textAlign = TextAlign.Center,
                     text = "No plan to be displayed",
-                    style = TextStyle(
-                        fontStyle = Typography.titleLarge.fontStyle,
-                        color = OrangeGP
-                    )
+                    style = Typography.bodyMedium,
+                    color = OrangeGP
                 )
             }
 
@@ -161,8 +157,8 @@ fun CalendarScreenContent(
                     .fillMaxWidth()
                     .border(
                         color = OrangeGP,
-                        width = 1.5.dp,
-                        shape = RoundedCornerShape(16.dp)
+                        width = MEDIUM_BORDER_WIDTH,
+                        shape = RoundedCornerShape(MEDIUM_PADDING)
                     )
                     .weight(1.5f)
             ) {
@@ -170,10 +166,6 @@ fun CalendarScreenContent(
                 Row(
                     modifier.fillMaxSize()
                 ) {
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-
 
                 }
 

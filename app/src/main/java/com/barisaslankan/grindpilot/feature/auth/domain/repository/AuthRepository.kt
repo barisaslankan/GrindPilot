@@ -8,4 +8,5 @@ interface AuthRepository {
     suspend fun createUserWithEmailAndPassword(email : String, password : String, repeatPassword : String) : Resource<User>
     suspend fun addUserToDb(user : User) : Resource<User>
     suspend fun getUserFromDb() : Resource<User>
+    fun isSignedInUser() : Boolean
 }

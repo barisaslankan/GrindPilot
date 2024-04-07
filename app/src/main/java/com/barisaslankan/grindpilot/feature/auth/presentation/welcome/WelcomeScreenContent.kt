@@ -29,7 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.R
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.EXTRA_EXTRA_LARGE_PADDING
+import com.barisaslankan.grindpilot.ui.theme.LARGE_PADDING
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.ui.theme.TextColor
 
 @Composable
 fun WelcomeScreenContent(
@@ -46,7 +52,7 @@ fun WelcomeScreenContent(
     ) {
 
         Spacer(
-            modifier = Modifier.padding(top=16.dp)
+            modifier = Modifier.padding(top= LARGE_PADDING)
         )
 
         Image(
@@ -57,7 +63,7 @@ fun WelcomeScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f)
-                .padding(8.dp)
+                .padding(SMALL_PADDING)
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -65,17 +71,16 @@ fun WelcomeScreenContent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 60.dp),
+                .padding(bottom = EXTRA_EXTRA_LARGE_PADDING),
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             OutlinedButton(
                 onClick = navigateToSignUp,
-                modifier= Modifier.size(80.dp),  //avoid the oval shape
+                modifier= Modifier.size(80.dp),
                 shape = CircleShape,
-                border= BorderStroke(1.5.dp, Color.Gray),
-                contentPadding = PaddingValues(1.5.dp),  //avoid the little icon
-                colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.Gray)
+                border= BorderStroke(MEDIUM_BORDER_WIDTH, TextColor),
+                contentPadding = PaddingValues(1.5.dp),
             ) {
                 Icon(
                     imageVector = Icons.Default.MailOutline,
@@ -88,26 +93,23 @@ fun WelcomeScreenContent(
                 onClick = authenticateWithGoogle,
                 modifier= Modifier.size(80.dp),
                 shape = CircleShape,
-                border= BorderStroke(1.5.dp, Color.Gray),
+                border= BorderStroke(MEDIUM_BORDER_WIDTH, TextColor),
                 contentPadding = PaddingValues(1.5.dp),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.Gray)
             ) {
                 Image(
                     modifier = Modifier.fillMaxSize().clip(CircleShape),
                     painter = painterResource(id = R.drawable.android_login),
-                    contentDescription = "content description")
+                    contentDescription = "Google Sign In Button")
             }
             OutlinedButton(
                 onClick = { /*facebook login*/ },
-                elevation = ButtonDefaults.buttonElevation(125.dp),
                 modifier= Modifier.size(80.dp),
                 shape = CircleShape,
-                border= BorderStroke(1.5.dp, Color.Gray),
+                border= BorderStroke(MEDIUM_BORDER_WIDTH, Color.Gray),
                 contentPadding = PaddingValues(1.5.dp),
-                colors = ButtonDefaults.outlinedButtonColors(contentColor =  Color.Gray)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.facebook_logo_primary), contentDescription = "email ")
+                    painter = painterResource(id = R.drawable.facebook_logo_primary), contentDescription = "Facebook Sign In Button")
             }
         }
     }
@@ -118,7 +120,7 @@ fun WelcomeScreenContent(
 fun WelcomeScreenPreview() {
     WelcomeScreenContent(
         modifier = Modifier,
-        authenticateWithGoogle = { /*TODO*/ },
-        navigateToSignUp = { /*TODO*/ }
+        authenticateWithGoogle = {},
+        navigateToSignUp = {}
     )
 }

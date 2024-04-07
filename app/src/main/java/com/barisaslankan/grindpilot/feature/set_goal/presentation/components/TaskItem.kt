@@ -24,7 +24,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.ui.theme.SMALL_BORDER_WIDTH
+import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.ui.theme.TextColor
 import com.barisaslankan.grindpilot.ui.theme.Typography
 
@@ -37,22 +40,20 @@ fun TaskItem(
         modifier = Modifier
             .fillMaxWidth()
             .border(
-                width = 1.dp,
+                width = SMALL_BORDER_WIDTH,
                 color = OrangeGP,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(MEDIUM_PADDING)
             )
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = MEDIUM_PADDING, vertical = SMALL_PADDING),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
             Text(
                 text = task,
-                style = TextStyle(
-                    fontStyle = Typography.bodyMedium.fontStyle,
-                    color = TextColor
-                )
+                style = Typography.bodyMedium,
+                color = OrangeGP
             )
 
             Spacer(modifier = Modifier.weight(1f))

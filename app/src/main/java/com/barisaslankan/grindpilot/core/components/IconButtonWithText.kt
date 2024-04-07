@@ -1,4 +1,4 @@
-package com.barisaslankan.grindpilot.core.composables
+package com.barisaslankan.grindpilot.core.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.ui.theme.Typography
 
 @Composable
@@ -29,10 +31,10 @@ fun IconButtonWithText(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(SMALL_PADDING)
         ) {
             Box(modifier = Modifier.border(
-                width = 1.5.dp,
+                width = MEDIUM_BORDER_WIDTH,
                 color = color,
                 shape = CircleShape
             )){

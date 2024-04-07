@@ -26,7 +26,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.model.Goal
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.ui.theme.TextColor
 import com.barisaslankan.grindpilot.ui.theme.Typography
 
 @Composable
@@ -45,13 +48,13 @@ fun CalendarItem(
         .padding(8.dp)
         .border(
             color = OrangeGP,
-            width = 1.5.dp,
-            shape = RoundedCornerShape(16.dp)
+            width = MEDIUM_BORDER_WIDTH,
+            shape = RoundedCornerShape(MEDIUM_PADDING)
         )
         .height(120.dp)
     ){
         Column(
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(MEDIUM_PADDING)
         ) {
 
             Row(
@@ -61,10 +64,8 @@ fun CalendarItem(
                     modifier = modifier
                         .weight(1f),
                     text = "00:00",
-                    style = TextStyle(
-                        color = OrangeGP,
-                        fontStyle = Typography.bodyMedium.fontStyle,
-                    )
+                    style = Typography.bodyMedium,
+                    color = TextColor
                 )
 
                 IconButton(
@@ -97,10 +98,8 @@ fun CalendarItem(
                     .wrapContentHeight(align = Alignment.CenterVertically),
                 text = "Chess",
                 textAlign = TextAlign.Center,
-                style = TextStyle(
-                    color = OrangeGP,
-                    fontStyle = Typography.titleLarge.fontStyle,
-                )
+                style = Typography.bodyMedium,
+                color = OrangeGP
             )
 
             ProgressBar(

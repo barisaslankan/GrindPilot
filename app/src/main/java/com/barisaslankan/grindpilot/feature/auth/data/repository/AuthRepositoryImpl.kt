@@ -60,5 +60,10 @@ class AuthRepositoryImpl @Inject constructor(
                 Resource.Error("Operation Failed: ${e.localizedMessage}")
             }
         }
+
+    override fun isSignedInUser(): Boolean {
+        return firebaseAuth.currentUser != null
     }
+}
+
 

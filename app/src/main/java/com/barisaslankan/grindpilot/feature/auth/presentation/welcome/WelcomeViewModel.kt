@@ -1,13 +1,15 @@
 package com.barisaslankan.grindpilot.feature.auth.presentation.welcome
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature.auth.domain.repository.AuthRepository
 import com.barisaslankan.grindpilot.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,27 +18,35 @@ class WelcomeViewModel @Inject constructor(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(WelcomeScreenState())
-    val state : State<WelcomeScreenState> = _state
+    private val _state = MutableStateFlow(WelcomeScreenState())
+    val state : StateFlow<WelcomeScreenState> = _state.asStateFlow()
 
     init {
         getUserFromDb()
     }
 
     fun onSignInResult(result : Resource<User?>){
-        _state.value = WelcomeScreenState(isLoading = true, error = null)
+        _state.update {
+            it.copy(isLoading = true, error = null)
+        }
         when(result){
             is Resource.Error -> {
-                _state.value = WelcomeScreenState(isLoading = false, error = result.message)
+                _state.update {
+                    it.copy(isLoading = false, error = result.message)
+                }
             }
             is Resource.Success -> {
-                _state.value = WelcomeScreenState(user = result.data, isLoading = false, error = null)
+                _state.update {
+                    it.copy(user = result.data, isLoading = false, error = null)
+                }
             }
         }
     }
 
     fun resetState() {
-        _state.value = WelcomeScreenState()
+        _state.update {
+            WelcomeScreenState()
+        }
     }
 
     fun addUserToDb(user : User){
@@ -45,10 +55,14 @@ class WelcomeViewModel @Inject constructor(
             val result = authRepository.addUserToDb(user)
             when(result){
                 is Resource.Error -> {
-                    _state.value = WelcomeScreenState(isLoading = false, error = result.message)
+                    _state.update {
+                        it.copy(isLoading = false, error = result.message)
+                    }
                 }
                 is Resource.Success -> {
-                    _state.value = WelcomeScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)
+                    _state.update {
+                        it.copy(user = result.data, userFromDb = true, isLoading = false, error = null)
+                    }
                 }
             }
         }
@@ -60,12 +74,20 @@ class WelcomeViewModel @Inject constructor(
             val result = authRepository.getUserFromDb()
             when(result){
                 is Resource.Error -> {
-                    _state.value = WelcomeScreenState(isLoading = false, error = result.message)
+                    _state.update {
+                        it.copy(isLoading = false, error = result.message)
+                    }
                 }
                 is Resource.Success -> {
-                    _state.value = WelcomeScreenState(user = result.data, userFromDb = true, isLoading = false, error = null)
+                    _state.update {
+                        it.copy(user = result.data, userFromDb = true, isLoading = false, error = null)
+                    }
                 }
             }
         }
+    }
+
+    fun isSignedInUser(): Boolean {
+        return authRepository.isSignedInUser()
     }
 }

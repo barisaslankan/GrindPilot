@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.R
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.HintColor
+import com.barisaslankan.grindpilot.ui.theme.LARGE_PADDING
+import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.ui.theme.TextColor
 import com.barisaslankan.grindpilot.ui.theme.Typography
@@ -59,9 +63,9 @@ fun SignUpScreenContent(
     ) {
         Column(
             modifier = modifier
-                .padding(16.dp),
+                .padding(MEDIUM_PADDING),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING)
         ) {
 
             Image(
@@ -71,31 +75,45 @@ fun SignUpScreenContent(
             )
 
             Column(
-                modifier = modifier.padding(bottom = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = modifier.padding(bottom = LARGE_PADDING),
+                verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING),
             ) {
                 OutlinedTextField(
                     value = email,
-                    textStyle = TextStyle(
-                        fontStyle = Typography.bodyLarge.fontStyle,
-                        color = TextColor
+                    textStyle = Typography.bodyMedium,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextColor,
+                        focusedContainerColor = BackgroundColor,
+                        unfocusedContainerColor = BackgroundColor
                     ),
                     onValueChange = onEmailTextChanged,
-                    label = { Text(text = "Email") },
-                    shape = RoundedCornerShape(16.dp),
+                    label = { Text(
+                        text = "Email",
+                        style = Typography.bodyMedium,
+                        color = HintColor
+                    ) },
+                    shape = RoundedCornerShape(MEDIUM_PADDING),
                     modifier = modifier
                 )
 
                 OutlinedTextField(
                     value = password,
-                    textStyle = TextStyle(
-                        fontStyle = Typography.bodyLarge.fontStyle,
-                        color = TextColor
+                    textStyle = Typography.bodyMedium,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextColor,
+                        focusedContainerColor = BackgroundColor,
+                        unfocusedContainerColor = BackgroundColor
                     ),
                     onValueChange = onPasswordTextChanged,
                     visualTransformation = PasswordVisualTransformation(),
-                    label = { Text(text = "Password") },
-                    shape = RoundedCornerShape(16.dp),
+                    label = { Text(
+                        text = "Password",
+                        style = Typography.bodyMedium,
+                        color = HintColor
+                    ) },
+                    shape = RoundedCornerShape(MEDIUM_PADDING),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
@@ -107,11 +125,18 @@ fun SignUpScreenContent(
                     value = repeatPassword,
                     onValueChange = onRepeatPasswordTextChanged,
                     visualTransformation = PasswordVisualTransformation(),
-                    label = { Text(text = "Repeat Password") },
-                    shape = RoundedCornerShape(16.dp),
-                    textStyle = TextStyle(
-                        fontStyle = Typography.bodyLarge.fontStyle,
-                        color = TextColor
+                    label = { Text(
+                        text = "Repeat Password",
+                        style = Typography.bodyMedium,
+                        color = HintColor
+                    ) },
+                    shape = RoundedCornerShape(MEDIUM_PADDING),
+                    textStyle = Typography.bodyMedium,
+                    colors = TextFieldDefaults.colors(
+                        unfocusedTextColor = TextColor,
+                        focusedTextColor = TextColor,
+                        focusedContainerColor = BackgroundColor,
+                        unfocusedContainerColor = BackgroundColor
                     ),
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
@@ -122,7 +147,7 @@ fun SignUpScreenContent(
 
                 OutlinedButton(
                     modifier = modifier
-                        .clip(RoundedCornerShape(16.dp)),
+                        .clip(RoundedCornerShape(MEDIUM_PADDING)),
                     border = null,
                     colors = ButtonColors(
                         contentColor = BackgroundColor,
@@ -134,21 +159,16 @@ fun SignUpScreenContent(
                 ) {
                     Text(
                         text = "Sign Up",
-                        style = TextStyle(
-                            fontStyle = Typography.titleLarge.fontStyle
-                        )
+                        style = Typography.titleSmall,
+                        color = BackgroundColor
                     )
                 }
-
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally).clickable { navigateToLogin() },
                     text = "Already have an account?",
-                    style = TextStyle.Default.copy(
-                        color = OrangeGP,
-                        fontStyle = Typography.bodyMedium.fontStyle
-                    )
+                    style = Typography.bodyMedium,
+                    color = OrangeGP
                 )
-
             }
         }
     }
@@ -160,10 +180,10 @@ fun SignUpScreenContentPreview(){
 
     SignUpScreenContent(
         modifier = Modifier.fillMaxWidth(),
-        email = "asdasd",
-        password = "asdasd",
-        repeatPassword = "asdasdad",
-        onSignUpClicked = { /*TODO*/ },
+        email = "",
+        password = "",
+        repeatPassword = "",
+        onSignUpClicked = {},
         onEmailTextChanged = {},
         onPasswordTextChanged = {},
         onRepeatPasswordTextChanged = {}
