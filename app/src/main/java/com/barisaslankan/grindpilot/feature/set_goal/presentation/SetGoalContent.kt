@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -23,19 +24,22 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
 import com.barisaslankan.grindpilot.feature.set_goal.presentation.components.TaskItem
 import com.barisaslankan.grindpilot.model.ProgressType
@@ -59,6 +63,8 @@ fun SetGoalContent(
     onProgressTypeExpandedChanged : (Boolean) -> Unit,
     onGoalNameChanged : (String) -> Unit,
     onProgressTypeChanged : (ProgressType) -> Unit,
+    onDisplayedProgressTypeChanged: (String) -> Unit,
+    displayedProgressType : String,
     onTaskChanged : (String) -> Unit,
     onTaskAdded : (String) -> Unit,
     onTimePicked: (String, String) -> Unit,
@@ -152,13 +158,16 @@ fun SetGoalContent(
                     shape = RoundedCornerShape(MEDIUM_PADDING),
                     value = totalWork.toString(),
                     onValueChange = onTotalWorkChanged,
-
                     textStyle = Typography.bodyMedium,
                     colors = TextFieldDefaults.colors(
                         unfocusedTextColor = TextColor,
                         focusedTextColor = TextColor,
                         focusedContainerColor = BackgroundColor,
                         unfocusedContainerColor = BackgroundColor
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
                     )
                 )
 
@@ -170,7 +179,9 @@ fun SetGoalContent(
                     isProgressTypeExpanded = isProgressTypeExpanded,
                     onProgressTypeChanged = {
                         onProgressTypeChanged(it)
-                    }
+                    },
+                    displayedProgressTypeChanged = onDisplayedProgressTypeChanged,
+                    displayedProgressType = displayedProgressType
                 )
             }
 
@@ -228,7 +239,9 @@ fun ProgressTypePicker(
     modifier : Modifier,
     isProgressTypeExpanded : Boolean,
     onProgressTypeChanged : (ProgressType) -> Unit,
-    onProgressTypeExpandedChanged: (Boolean) -> Unit
+    onProgressTypeExpandedChanged: (Boolean) -> Unit,
+    displayedProgressTypeChanged : (String) -> Unit,
+    displayedProgressType: String
     ){
 
     ExposedDropdownMenuBox(
@@ -236,17 +249,42 @@ fun ProgressTypePicker(
         expanded = isProgressTypeExpanded,
         onExpandedChange = onProgressTypeExpandedChanged
     ) {
-        ProgressType.entries.forEach { progressType ->
-            DropdownMenuItem(
-                text = { Text(
-                    text = progressType.name,
-                    style = Typography.bodyMedium,
-                    color = TextColor
-                )},
-                onClick = {
-                    onProgressTypeChanged(progressType)
-                }
-            )
+
+        TextField(
+            value = displayedProgressType,
+            onValueChange = displayedProgressTypeChanged,
+            readOnly = true,
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isProgressTypeExpanded) },
+            modifier = Modifier.menuAnchor(),
+            textStyle = Typography.bodyMedium,
+            colors = TextFieldDefaults.colors(
+                unfocusedTextColor = TextColor,
+                focusedTextColor = TextColor,
+                focusedContainerColor = BackgroundColor,
+                unfocusedContainerColor = BackgroundColor
+            ),
+            shape = RoundedCornerShape(MEDIUM_PADDING)
+        )
+
+        ExposedDropdownMenu(
+            expanded = isProgressTypeExpanded,
+            onDismissRequest = { onProgressTypeExpandedChanged(false) },
+            modifier = Modifier.background(BackgroundColor)
+        ) {
+            ProgressType.entries.forEach { progressType ->
+                DropdownMenuItem(
+                    text = { Text(
+                        text = progressType.name.substring(0, 1) + progressType.name.substring(1).lowercase(),
+                        style = Typography.bodyMedium,
+                        color = TextColor
+                    )},
+                    onClick = {
+                        onProgressTypeChanged(progressType)
+                        displayedProgressTypeChanged(progressType.name.substring(0, 1) + progressType.name.substring(1).lowercase())
+                        onProgressTypeExpandedChanged(false)
+                    }
+                )
+            }
         }
     }
 }
@@ -306,6 +344,8 @@ fun SetGoalContentPreview(){
         ),
         onTaskRemoved = {},
         onBackPressed = {},
-        createTask = {}
+        createTask = {},
+        onDisplayedProgressTypeChanged = {},
+        displayedProgressType = ProgressType.HOURS.name
     )
 }

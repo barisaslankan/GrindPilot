@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
@@ -64,7 +65,9 @@ fun CreatePlanScreenContent(
     onDayPicked : (Day) -> Unit,
     selectedDays : ArrayList<Day>,
     listGoals : () -> Unit,
-    onDurationTypeExpandedChanged: (Boolean) -> Unit
+    onDurationTypeExpandedChanged: (Boolean) -> Unit,
+    displayedDurationType: String,
+    displayedDurationTypeChanged: (String) -> Unit
     ){
 
     Box(
@@ -166,7 +169,9 @@ fun CreatePlanScreenContent(
                     modifier = Modifier.weight(2f),
                     isDurationTypeExpanded = isDurationTypeExpanded,
                     onDurationTypeChanged = onDurationTypeChanged,
-                    onDurationTypeExpandedChanged = onDurationTypeExpandedChanged
+                    onDurationTypeExpandedChanged = onDurationTypeExpandedChanged,
+                    displayedDurationType = displayedDurationType,
+                    displayedDurationTypeChanged = displayedDurationTypeChanged
                 )
             }
 
@@ -215,31 +220,54 @@ fun CreatePlanScreenContent(
     }
 }
 
-//bunu da component yap(?)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DurationTypePicker(
     modifier : Modifier,
     isDurationTypeExpanded : Boolean,
     onDurationTypeChanged : (DurationType) -> Unit,
-    onDurationTypeExpandedChanged: (Boolean) -> Unit
+    onDurationTypeExpandedChanged: (Boolean) -> Unit,
+    displayedDurationTypeChanged : (String) -> Unit,
+    displayedDurationType: String
 ){
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = isDurationTypeExpanded,
         onExpandedChange = onDurationTypeExpandedChanged
     ) {
-        DurationType.entries.forEach { durationType ->
-            DropdownMenuItem(
-                text = { Text(
-                    text = durationType.name,
-                    style = Typography.bodyMedium,
-                    color = TextColor
-                )},
-                onClick = {
-                    onDurationTypeChanged(durationType)
-                }
-            )
+        TextField(
+            value = displayedDurationType,
+            onValueChange = displayedDurationTypeChanged,
+            readOnly = true,
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isDurationTypeExpanded) },
+            modifier = Modifier.menuAnchor(),
+            textStyle = Typography.bodyMedium,
+            colors = TextFieldDefaults.colors(
+                unfocusedTextColor = TextColor,
+                focusedTextColor = TextColor,
+                focusedContainerColor = BackgroundColor,
+                unfocusedContainerColor = BackgroundColor
+            ),
+            shape = RoundedCornerShape(MEDIUM_PADDING)
+        )
+
+        ExposedDropdownMenu(
+            expanded = isDurationTypeExpanded,
+            onDismissRequest = { onDurationTypeExpandedChanged(false) },
+            modifier = Modifier.background(BackgroundColor)
+        ) {
+            DurationType.entries.forEach { durationType ->
+                DropdownMenuItem(
+                    text = { Text(
+                        text = durationType.name.substring(0, 1) + durationType.name.substring(1).lowercase(),
+                        style = Typography.bodyMedium,
+                        color = TextColor
+                    )},
+                    onClick = {
+                        onDurationTypeChanged(durationType)
+                    }
+                )
+            }
         }
     }
 }
@@ -306,6 +334,8 @@ fun CreatePlanScreenContentPreview(){
         selectedDays = arrayListOf(),
         onDayPicked = {},
         listGoals = {},
-        onDurationTypeExpandedChanged = {}
+        onDurationTypeExpandedChanged = {},
+        displayedDurationType = "WEEKS",
+        displayedDurationTypeChanged = {}
     )
 }

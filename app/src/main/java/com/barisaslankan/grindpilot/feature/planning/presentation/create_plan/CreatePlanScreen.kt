@@ -82,7 +82,9 @@ fun CreatePlanScreen(
             selectedDays = arrayListOf(),
             onDayPicked = {},
             listGoals = {},
-            onDurationTypeExpandedChanged = {}
+            onDurationTypeExpandedChanged = {},
+            displayedDurationType = "",
+            displayedDurationTypeChanged = {}
         )
     }
 }

@@ -47,24 +47,27 @@ class SetGoalViewModel @Inject constructor(
         state.value.tasks.add(task)
     }
     fun onProgressTypeExpandedChanged(isExpanded : Boolean){
-        _state.value = SetGoalState(isProgressTypeExpanded = isExpanded)
+        _state.value = _state.value.copy(isProgressTypeExpanded = isExpanded)
     }
     fun onGoalNameChanged(name : String){
-        _state.value = SetGoalState(goalName = name)
+        _state.value = _state.value.copy(goalName = name)
     }
     fun dismissTimePicker(isExpanded : Boolean){
-        _state.value = SetGoalState(isTimePickerExtended = isExpanded)
+        _state.value = _state.value.copy(isTimePickerExtended = isExpanded)
     }
     fun onProgressTypeChanged(progressType: ProgressType){
-        _state.value = SetGoalState(progressType = progressType)
+        _state.value = _state.value.copy(progressType = progressType)
     }
     fun onTaskChanged(task : String){
-        _state.value = SetGoalState(task = task)
+        _state.value = _state.value.copy(task = task)
     }
     fun onTimePicked(hour : String, minute : String){
-        _state.value = SetGoalState(workTime = "$hour:$minute")
+        _state.value = _state.value.copy(workTime = "$hour:$minute")
     }
     fun onTotalWorkChanged(totalWork : String){
-        _state.value = SetGoalState(totalWork = totalWork.toDouble())
+        _state.value = _state.value.copy(totalWork = totalWork.toDouble())
+    }
+    fun onDisplayedProgressTypeChanged(progressType : String){
+        _state.value = _state.value.copy(displayedProgressType = progressType)
     }
 }

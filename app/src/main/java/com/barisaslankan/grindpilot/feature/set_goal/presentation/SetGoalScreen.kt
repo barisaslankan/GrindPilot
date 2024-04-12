@@ -7,8 +7,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.barisaslankan.grindpilot.model.ProgressType
 
 @Composable
 fun SetGoalScreen(
@@ -72,6 +72,10 @@ fun SetGoalScreen(
         onProgressTypeExpandedChanged = {isExpanded ->
             viewModel.onProgressTypeExpandedChanged(isExpanded)
         },
-        createTask = {}
+        createTask = {},
+        onDisplayedProgressTypeChanged = {displayedProgressType ->
+            viewModel.onDisplayedProgressTypeChanged(displayedProgressType)
+        },
+        displayedProgressType = state.displayedProgressType
     )
 }

@@ -6,7 +6,7 @@ import com.barisaslankan.grindpilot.model.ProgressType
 
 data class SetGoalState(
     val isLoading : Boolean = false,
-    val error : String? = "",
+    val error : String? = null,
     val plan : Plan? = null,
     val goal : Goal? = null,
     val goalName : String = "",
@@ -16,5 +16,6 @@ data class SetGoalState(
     val tasks : ArrayList<String> = arrayListOf(),
     val isProgressTypeExpanded : Boolean = false,
     val isTimePickerExtended : Boolean = false,
-    val task : String = ""
+    val task : String = "",
+    val displayedProgressType : String = ""
     )
