@@ -15,7 +15,7 @@ data class SetGoalState(
     val totalWork : Double = 0.0,
     val tasks : ArrayList<String> = arrayListOf(),
     val isProgressTypeExpanded : Boolean = false,
-    val isTimePickerExtended : Boolean = false,
+    val isTimePickerExpanded : Boolean = false,
     val task : String = "",
-    val displayedProgressType : String = ""
+    val displayedProgressType : String = ProgressType.HOURS.name.substring(0, 1) + ProgressType.HOURS.name.substring(1).lowercase()
     )

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature.planning.domain.repository.PlanningRepository
+import com.barisaslankan.grindpilot.model.Day
+import com.barisaslankan.grindpilot.model.DurationType
 import com.barisaslankan.grindpilot.model.Goal
 import com.barisaslankan.grindpilot.model.Plan
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -89,6 +91,41 @@ class CreatePlanViewModel @Inject constructor(
             it.copy(
                 name = name
             )
+        }
+    }
+
+    fun onDisplayedDurationTypeChanged(displayedDurationType: String){
+        _state.update {
+            it.copy(displayedDurationType = displayedDurationType)
+        }
+    }
+
+    fun onDurationTypeExpanded(isExpanded : Boolean){
+        _state.update {
+            it.copy(isDurationTypeExpanded = isExpanded)
+        }
+    }
+
+    fun onDurationTypeChanged(durationType: DurationType){
+        _state.update {
+            it.copy(durationType = durationType)
+        }
+    }
+
+    fun onDurationTextChanged(durationText : String){
+        _state.update {
+            it.copy(durationText = durationText)
+        }
+    }
+
+    fun onDayPicked(day: Day) {
+        _state.update { currentState ->
+            val updatedSelectedDays = if (currentState.selectedDays.contains(day)) {
+                currentState.selectedDays - day
+            } else {
+                currentState.selectedDays + day
+            }
+            currentState.copy(selectedDays = ArrayList(updatedSelectedDays))
         }
     }
 }

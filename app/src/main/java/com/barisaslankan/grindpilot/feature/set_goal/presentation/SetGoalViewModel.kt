@@ -53,7 +53,7 @@ class SetGoalViewModel @Inject constructor(
         _state.value = _state.value.copy(goalName = name)
     }
     fun dismissTimePicker(isExpanded : Boolean){
-        _state.value = _state.value.copy(isTimePickerExtended = isExpanded)
+        _state.value = _state.value.copy(isTimePickerExpanded = isExpanded)
     }
     fun onProgressTypeChanged(progressType: ProgressType){
         _state.value = _state.value.copy(progressType = progressType)

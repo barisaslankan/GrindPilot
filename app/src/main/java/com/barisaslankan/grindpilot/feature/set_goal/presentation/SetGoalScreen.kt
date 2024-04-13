@@ -8,7 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.barisaslankan.grindpilot.model.ProgressType
 
 @Composable
 fun SetGoalScreen(
@@ -37,7 +36,7 @@ fun SetGoalScreen(
             viewModel.onGoalNameChanged(goalName)
         },
         isProgressTypeExpanded = state.isProgressTypeExpanded,
-        isTimePickerExtended = state.isTimePickerExtended,
+        isTimePickerExtended = state.isTimePickerExpanded,
         dismissTimePicker = {viewModel.dismissTimePicker(isExpanded = false)},
         onProgressTypeChanged = {progressType ->
             viewModel.onProgressTypeChanged(progressType = progressType)

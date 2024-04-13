@@ -26,7 +26,7 @@ class SetGoalRepositoryImpl @Inject constructor(
             val uuid = UUID.randomUUID().toString()
             val plan = Plan(id =uuid, ownerId = user!!.uid, goals =goals, name = name)
 
-            db.collection(DB_USERS).document(user.uid).collection(DB_PLANS).add(plan).await()
+            db.collection(DB_USERS).document(user.uid).collection(DB_PLANS).document(uuid).set(plan).await()
             Resource.Success(data = plan)
         }catch (e: Exception){
             Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")
@@ -52,11 +52,10 @@ class SetGoalRepositoryImpl @Inject constructor(
                 progress = 0.0,
                 workTime = workTime
             )
-            db.collection(DB_USERS).document(user.uid).collection(DB_GOALS).add(goal).await()
+            db.collection(DB_USERS).document(user.uid).collection(DB_GOALS).document(uuid).set(goal).await()
             Resource.Success(data = goal)
         }catch (e: Exception){
             Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")
         }
-
     }
 }

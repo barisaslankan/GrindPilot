@@ -36,7 +36,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -152,7 +151,6 @@ fun SetGoalContent(
             Row(
                 modifier = modifier,
             ){
-
                 OutlinedTextField(
                     modifier = modifier.weight(1f),
                     shape = RoundedCornerShape(MEDIUM_PADDING),

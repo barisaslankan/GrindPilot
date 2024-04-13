@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -30,6 +32,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
@@ -67,7 +71,7 @@ fun CreatePlanScreenContent(
     listGoals : () -> Unit,
     onDurationTypeExpandedChanged: (Boolean) -> Unit,
     displayedDurationType: String,
-    displayedDurationTypeChanged: (String) -> Unit
+    displayedDurationTypeChanged: (String) -> Unit,
     ){
 
     Box(
@@ -161,17 +165,23 @@ fun CreatePlanScreenContent(
                         focusedContainerColor = BackgroundColor,
                         unfocusedContainerColor = BackgroundColor
                     ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
                     value = durationText,
                     onValueChange = onDurationTextChanged,
                 )
 
+                Spacer(modifier = Modifier.width(SMALL_PADDING))
+
                 DurationTypePicker(
-                    modifier = Modifier.weight(2f),
+                    modifier = Modifier.weight(3f),
                     isDurationTypeExpanded = isDurationTypeExpanded,
                     onDurationTypeChanged = onDurationTypeChanged,
                     onDurationTypeExpandedChanged = onDurationTypeExpandedChanged,
                     displayedDurationType = displayedDurationType,
-                    displayedDurationTypeChanged = displayedDurationTypeChanged
+                    displayedDurationTypeChanged = displayedDurationTypeChanged,
                 )
             }
 
@@ -238,8 +248,9 @@ fun DurationTypePicker(
         TextField(
             value = displayedDurationType,
             onValueChange = displayedDurationTypeChanged,
+            maxLines = 1,
             readOnly = true,
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isDurationTypeExpanded) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isDurationTypeExpanded)},
             modifier = Modifier.menuAnchor(),
             textStyle = Typography.bodyMedium,
             colors = TextFieldDefaults.colors(
@@ -265,6 +276,8 @@ fun DurationTypePicker(
                     )},
                     onClick = {
                         onDurationTypeChanged(durationType)
+                        displayedDurationTypeChanged(durationType.name.substring(0, 1) + durationType.name.substring(1).lowercase())
+                        onDurationTypeExpandedChanged(false)
                     }
                 )
             }
@@ -336,6 +349,6 @@ fun CreatePlanScreenContentPreview(){
         listGoals = {},
         onDurationTypeExpandedChanged = {},
         displayedDurationType = "WEEKS",
-        displayedDurationTypeChanged = {}
+        displayedDurationTypeChanged = {},
     )
 }

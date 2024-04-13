@@ -75,16 +75,16 @@ fun CreatePlanScreen(
             removeGoalFromPlan = {goal ->
                 viewModel.removeGoalFromPlan(goal)
             },
-            onDurationTypeChanged = {},
-            isDurationTypeExpanded = false,
-            durationText = "",
-            onDurationTextChanged = {},
-            selectedDays = arrayListOf(),
-            onDayPicked = {},
+            onDurationTypeChanged = { viewModel.onDurationTypeChanged(it) },
+            isDurationTypeExpanded = state.isDurationTypeExpanded,
+            durationText = state.durationText,
+            onDurationTextChanged = {viewModel.onDurationTextChanged(it)},
+            selectedDays = state.selectedDays,
+            onDayPicked = {viewModel.onDayPicked(it)},
             listGoals = {},
-            onDurationTypeExpandedChanged = {},
-            displayedDurationType = "",
-            displayedDurationTypeChanged = {}
+            onDurationTypeExpandedChanged = {viewModel.onDurationTypeExpanded(it)},
+            displayedDurationType = state.displayedDurationType,
+            displayedDurationTypeChanged = {viewModel.onDisplayedDurationTypeChanged(it)},
         )
     }
 }
