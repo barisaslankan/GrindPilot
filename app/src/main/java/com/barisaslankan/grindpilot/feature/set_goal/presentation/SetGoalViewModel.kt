@@ -41,10 +41,10 @@ class SetGoalViewModel @Inject constructor(
     }
 
     fun onTaskRemoved(task : String){
-        state.value.tasks.remove(task)
+        _state.value = _state.value.copy(tasks = ArrayList(_state.value.tasks - task))
     }
     fun onTaskAdded(task : String){
-        state.value.tasks.add(task)
+        _state.value = _state.value.copy(tasks = ArrayList(_state.value.tasks + task))
     }
     fun onProgressTypeExpandedChanged(isExpanded : Boolean){
         _state.value = _state.value.copy(isProgressTypeExpanded = isExpanded)
@@ -69,5 +69,8 @@ class SetGoalViewModel @Inject constructor(
     }
     fun onTaskDialogDisplayed(isDisplayed : Boolean){
         _state.value = _state.value.copy(displayTaskDialog = isDisplayed)
+    }
+    fun onTaskTextChanged(task: String){
+        _state.value = _state.value.copy(taskText = task)
     }
 }

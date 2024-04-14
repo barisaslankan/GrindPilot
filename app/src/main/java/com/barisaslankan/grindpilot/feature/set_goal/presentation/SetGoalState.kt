@@ -17,5 +17,6 @@ data class SetGoalState(
     val isProgressTypeExpanded : Boolean = false,
     val task : String = "",
     val displayedProgressType : String = ProgressType.HOURS.name.substring(0, 1) + ProgressType.HOURS.name.substring(1).lowercase(),
-    val displayTaskDialog : Boolean = false
+    val displayTaskDialog : Boolean = false,
+    val taskText : String = ""
     )

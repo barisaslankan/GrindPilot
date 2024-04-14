@@ -67,10 +67,14 @@ fun SetGoalScreen(
         onProgressTypeExpandedChanged = {isExpanded ->
             viewModel.onProgressTypeExpandedChanged(isExpanded)
         },
-        createTask = {},
+        createTask = {viewModel.onTaskAdded(it)},
         onDisplayedProgressTypeChanged = {displayedProgressType ->
             viewModel.onDisplayedProgressTypeChanged(displayedProgressType)
         },
-        displayedProgressType = state.displayedProgressType
+        displayedProgressType = state.displayedProgressType,
+        taskText = state.taskText,
+        onTaskTextChanged = {viewModel.onTaskTextChanged(it)},
+        displayTaskDialog = state.displayTaskDialog,
+        onTaskDialogDisplayed = {viewModel.onTaskDialogDisplayed(it)}
     )
 }

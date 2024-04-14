@@ -19,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -43,6 +45,7 @@ import com.barisaslankan.grindpilot.core.components.IconButtonWithText
 import com.barisaslankan.grindpilot.feature.set_goal.presentation.components.TaskItem
 import com.barisaslankan.grindpilot.model.ProgressType
 import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.ui.theme.HintColor
 import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
@@ -68,8 +71,11 @@ fun SetGoalContent(
     onGoalSaved : () -> Unit,
     onTaskRemoved : (String) -> Unit,
     onBackPressed : () -> Unit,
-    createTask :() -> Unit,
-    onTaskDialogDisplayed : (Boolean) -> Unit
+    createTask :(String) -> Unit,
+    onTaskDialogDisplayed : (Boolean) -> Unit,
+    displayTaskDialog : Boolean,
+    taskText : String,
+    onTaskTextChanged : (String) -> Unit
 ){
 
     Box(
@@ -226,6 +232,48 @@ fun SetGoalContent(
                 },
                 onClick = onGoalSaved
             )
+
+            if (displayTaskDialog) {
+                AlertDialog(
+                    onDismissRequest = { onTaskDialogDisplayed(false) },
+                    title = { Text(
+                        text = "Add Task",
+                        style = Typography.titleSmall,
+                        color = OrangeGP
+                    ) },
+                    text = {
+                        TextField(
+                            value = taskText,
+                            onValueChange = { onTaskTextChanged(it) },
+                            label = { Text(
+                                text = "Task",
+                                style = Typography.labelMedium,
+                                color = HintColor
+                            ) },
+                            colors = TextFieldDefaults.colors(
+                                unfocusedTextColor = TextColor,
+                                focusedTextColor = TextColor,
+                                focusedContainerColor = BackgroundColor,
+                                unfocusedContainerColor = BackgroundColor
+                            )
+                        )
+                    },
+                    confirmButton = {
+                        Button(onClick = {
+                            createTask(taskText)
+                            onTaskDialogDisplayed(false)
+                            onTaskTextChanged("")
+                        }) {
+                            Text(
+                                text = "Add",
+                                style = Typography.bodyMedium,
+                                color = OrangeGP
+                            )
+                        }
+                    }
+                )
+            }
+
         }
     }
 }
@@ -310,6 +358,9 @@ fun SetGoalContentPreview(){
         createTask = {},
         onDisplayedProgressTypeChanged = {},
         displayedProgressType = ProgressType.HOURS.name,
-        onTaskDialogDisplayed = {}
+        onTaskDialogDisplayed = {},
+        displayTaskDialog = false,
+        taskText = "",
+        onTaskTextChanged = {}
     )
 }
