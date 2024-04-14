@@ -32,7 +32,6 @@ import com.barisaslankan.grindpilot.ui.theme.Typography
 @Composable
 fun GoalItem(
     goal : Goal,
-    addGoalToPlan: (goal : Goal) -> Unit,
     removeGoalFromPlan: (goal : Goal) -> Unit,
 ){
     Box(
@@ -54,7 +53,7 @@ fun GoalItem(
                color = OrangeGP
            )
             IconButton(
-                onClick ={ addGoalToPlan(goal) },
+                onClick ={ removeGoalFromPlan(goal) },
                 colors = IconButtonColors(
                     containerColor = BackgroundColor,
                     contentColor = OrangeGP,
@@ -85,7 +84,6 @@ fun GoalItemPreview(){
             workTime = "",
             0.0
         ),
-        addGoalToPlan = {},
         removeGoalFromPlan = {}
     )
 }

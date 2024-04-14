@@ -75,14 +75,14 @@ class CreatePlanViewModel @Inject constructor(
     fun addGoalToPlan(goal : Goal){
         _state.update {
             it.copy(
-                goals = ArrayList(it.selectedGoals + goal)
+                selectedGoals = ArrayList(it.selectedGoals + goal)
             )
         }
     }
     fun removeGoalFromPlan(goal : Goal){
         _state.update {
             it.copy(
-                goals = ArrayList(it.selectedGoals - goal)
+                selectedGoals = ArrayList(it.selectedGoals - goal)
             )
         }
     }
@@ -126,6 +126,12 @@ class CreatePlanViewModel @Inject constructor(
                 currentState.selectedDays + day
             }
             currentState.copy(selectedDays = ArrayList(updatedSelectedDays))
+        }
+    }
+
+    fun onBottomSheetExpanded(isExpanded: Boolean){
+        _state.update {
+            it.copy(isBottomSheetExpanded = isExpanded)
         }
     }
 }

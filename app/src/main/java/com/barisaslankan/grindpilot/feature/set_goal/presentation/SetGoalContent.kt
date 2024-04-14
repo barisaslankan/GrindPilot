@@ -52,13 +52,11 @@ import com.barisaslankan.grindpilot.ui.theme.Typography
 @Composable
 fun SetGoalContent(
     modifier: Modifier,
-    isTimePickerExtended : Boolean,
     isProgressTypeExpanded : Boolean,
     goalName : String,
     task : String,
     tasks : ArrayList<String>,
     totalWork : Double,
-    dismissTimePicker : () -> Unit,
     onProgressTypeExpandedChanged : (Boolean) -> Unit,
     onGoalNameChanged : (String) -> Unit,
     onProgressTypeChanged : (ProgressType) -> Unit,
@@ -66,12 +64,12 @@ fun SetGoalContent(
     displayedProgressType : String,
     onTaskChanged : (String) -> Unit,
     onTaskAdded : (String) -> Unit,
-    onTimePicked: (String, String) -> Unit,
     onTotalWorkChanged : (String) -> Unit,
     onGoalSaved : () -> Unit,
     onTaskRemoved : (String) -> Unit,
     onBackPressed : () -> Unit,
-    createTask :() -> Unit
+    createTask :() -> Unit,
+    onTaskDialogDisplayed : (Boolean) -> Unit
 ){
 
     Box(
@@ -183,12 +181,13 @@ fun SetGoalContent(
                 )
             }
 
-            Row(
+            if(displayedProgressType.lowercase() == ProgressType.TASKS.name.lowercase())
+                Row(
                 modifier = modifier,
                 verticalAlignment = Alignment.CenterVertically,
-            ) {
+                ) {
                 IconButtonWithText(
-                    onClick = createTask,
+                    onClick = {onTaskDialogDisplayed(true)},
                     icon = Icons.Default.Add,
                     text = "Add Task",
                     color = OrangeGP
@@ -287,52 +286,18 @@ fun ProgressTypePicker(
     }
 }
 
-@Composable
-fun TimePicker(
-    modifier : Modifier,
-    isTimePickerExtended : Boolean,
-    dismissTimePicker: () -> Unit,
-    onTimePicked : (String,String) -> Unit
-) {
-    DropdownMenu(
-        modifier = modifier,
-        expanded = isTimePickerExtended,
-        onDismissRequest = dismissTimePicker
-    ) {
-        for (hour in 0 until 24) {
-            for (minute in 0 until 60 step 15) {
-                DropdownMenuItem(
-                    onClick = {onTimePicked("$hour", if (minute < 10) "0$minute" else "$minute")},
-                    text = {
-                        Text(
-                            text = "$hour:${if (minute < 10) "0$minute" else minute}",
-                            style = Typography.bodyMedium,
-                            color = TextColor
-                        )
-                    }
-                )
-            }
-        }
-    }
-}
-
 @Preview
 @Composable
 fun SetGoalContentPreview(){
     SetGoalContent(
         modifier = Modifier.fillMaxWidth(),
         isProgressTypeExpanded = false,
-        isTimePickerExtended = false,
         onProgressTypeExpandedChanged = {},
-        dismissTimePicker = {},
         goalName = "Goal Name",
         onGoalNameChanged = {},
         onProgressTypeChanged = {},
         onTaskAdded = {},
         onTaskChanged = {},
-        onTimePicked = { hour, minute ->
-
-        },
         onTotalWorkChanged = {},
         task = "Task",
         totalWork = 0.0,
@@ -344,6 +309,7 @@ fun SetGoalContentPreview(){
         onBackPressed = {},
         createTask = {},
         onDisplayedProgressTypeChanged = {},
-        displayedProgressType = ProgressType.HOURS.name
+        displayedProgressType = ProgressType.HOURS.name,
+        onTaskDialogDisplayed = {}
     )
 }

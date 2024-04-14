@@ -1,6 +1,7 @@
 package com.barisaslankan.grindpilot.feature.planning.presentation.create_plan
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -23,12 +26,18 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -51,6 +60,7 @@ import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.ui.theme.TextColor
 import com.barisaslankan.grindpilot.ui.theme.Typography
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreatePlanScreenContent(
     modifier : Modifier,
@@ -68,11 +78,14 @@ fun CreatePlanScreenContent(
     onDurationTextChanged : (String) -> Unit,
     onDayPicked : (Day) -> Unit,
     selectedDays : ArrayList<Day>,
-    listGoals : () -> Unit,
     onDurationTypeExpandedChanged: (Boolean) -> Unit,
     displayedDurationType: String,
     displayedDurationTypeChanged: (String) -> Unit,
+    isBottomSheetExpanded : Boolean,
+    onBottomSheetExpanded : (Boolean) -> Unit
     ){
+
+    val modalBottomSheetState = rememberModalBottomSheetState()
 
     Box(
         modifier = Modifier
@@ -192,7 +205,7 @@ fun CreatePlanScreenContent(
             )
 
             IconButtonWithText(
-                onClick = listGoals,
+                onClick = {onBottomSheetExpanded(true)},
                 icon = Icons.Default.Add,
                 text = "Add Goal",
                 color = OrangeGP
@@ -200,10 +213,9 @@ fun CreatePlanScreenContent(
 
            PlanTemplate(
                modifier = modifier
-               .weight(1f)
-               .background(BackgroundColor),
+                   .weight(1f)
+                   .background(BackgroundColor),
                selectedGoals = selectedGoals,
-               addGoalToPlan = addGoalToPlan,
                removeGoalFromPlan = removeGoalFromPlan
            )
 
@@ -226,6 +238,29 @@ fun CreatePlanScreenContent(
                 },
                 onClick = uploadPlan
             )
+
+            if(isBottomSheetExpanded){
+                ModalBottomSheet(
+                    sheetState = modalBottomSheetState,
+                    onDismissRequest = { onBottomSheetExpanded(false) }) {
+                    LazyColumn(
+                        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        items(goals){goal ->
+                            Text(
+                                modifier = Modifier.clickable {
+                                    addGoalToPlan(goal)
+                                    onBottomSheetExpanded(false) },
+                                text = "Upload Plan",
+                                style = Typography.titleSmall,
+                                color = BackgroundColor
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -346,9 +381,10 @@ fun CreatePlanScreenContentPreview(){
         onDurationTextChanged = {},
         selectedDays = arrayListOf(),
         onDayPicked = {},
-        listGoals = {},
         onDurationTypeExpandedChanged = {},
         displayedDurationType = "WEEKS",
         displayedDurationTypeChanged = {},
+        isBottomSheetExpanded = false,
+        onBottomSheetExpanded = {}
     )
 }

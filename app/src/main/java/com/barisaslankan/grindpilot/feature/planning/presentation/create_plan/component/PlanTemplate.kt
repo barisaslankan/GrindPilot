@@ -23,7 +23,6 @@ import com.barisaslankan.grindpilot.ui.theme.TextColor
 fun PlanTemplate(
     modifier : Modifier,
     selectedGoals : ArrayList<Goal>,
-    addGoalToPlan: (goal : Goal) -> Unit,
     removeGoalFromPlan: (goal : Goal) -> Unit,
 ){
     Box(modifier = modifier.fillMaxWidth()
@@ -41,7 +40,6 @@ fun PlanTemplate(
             items(selectedGoals) { goal ->
                 GoalItem(
                     goal = goal,
-                    addGoalToPlan = addGoalToPlan,
                     removeGoalFromPlan = removeGoalFromPlan
                 )
             }
@@ -75,7 +73,6 @@ fun PlanTemplatePreview(){
                 "",
                 100.0
             )),
-        addGoalToPlan = {},
         removeGoalFromPlan = {}
     )
 }

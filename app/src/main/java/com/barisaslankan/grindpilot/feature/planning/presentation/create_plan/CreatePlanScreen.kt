@@ -81,10 +81,11 @@ fun CreatePlanScreen(
             onDurationTextChanged = {viewModel.onDurationTextChanged(it)},
             selectedDays = state.selectedDays,
             onDayPicked = {viewModel.onDayPicked(it)},
-            listGoals = {},
             onDurationTypeExpandedChanged = {viewModel.onDurationTypeExpanded(it)},
             displayedDurationType = state.displayedDurationType,
             displayedDurationTypeChanged = {viewModel.onDisplayedDurationTypeChanged(it)},
+            onBottomSheetExpanded = { viewModel.onBottomSheetExpanded(it) },
+            isBottomSheetExpanded = state.isBottomSheetExpanded
         )
     }
 }

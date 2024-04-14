@@ -14,5 +14,6 @@ data class CreatePlanScreenState(
     val isDurationTypeExpanded : Boolean = false,
     val durationText : String = "",
     val displayedDurationType: String = DurationType.WEEKS.name.substring(0, 1) + DurationType.WEEKS.name.substring(1).lowercase(),
-    val selectedDays : ArrayList<Day> = arrayListOf()
+    val selectedDays : ArrayList<Day> = arrayListOf(),
+    val isBottomSheetExpanded : Boolean = false
 )

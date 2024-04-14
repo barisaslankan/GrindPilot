@@ -52,9 +52,6 @@ class SetGoalViewModel @Inject constructor(
     fun onGoalNameChanged(name : String){
         _state.value = _state.value.copy(goalName = name)
     }
-    fun dismissTimePicker(isExpanded : Boolean){
-        _state.value = _state.value.copy(isTimePickerExpanded = isExpanded)
-    }
     fun onProgressTypeChanged(progressType: ProgressType){
         _state.value = _state.value.copy(progressType = progressType)
     }
@@ -69,5 +66,8 @@ class SetGoalViewModel @Inject constructor(
     }
     fun onDisplayedProgressTypeChanged(progressType : String){
         _state.value = _state.value.copy(displayedProgressType = progressType)
+    }
+    fun onTaskDialogDisplayed(isDisplayed : Boolean){
+        _state.value = _state.value.copy(displayTaskDialog = isDisplayed)
     }
 }

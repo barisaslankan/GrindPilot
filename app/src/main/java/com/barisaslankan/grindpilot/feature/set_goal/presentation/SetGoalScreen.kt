@@ -36,8 +36,6 @@ fun SetGoalScreen(
             viewModel.onGoalNameChanged(goalName)
         },
         isProgressTypeExpanded = state.isProgressTypeExpanded,
-        isTimePickerExtended = state.isTimePickerExpanded,
-        dismissTimePicker = {viewModel.dismissTimePicker(isExpanded = false)},
         onProgressTypeChanged = {progressType ->
             viewModel.onProgressTypeChanged(progressType = progressType)
         },
@@ -47,8 +45,6 @@ fun SetGoalScreen(
         onTaskChanged = {task ->
             viewModel.onTaskChanged(task = task)
         },
-        onTimePicked = { hour, minute ->
-            viewModel.onTimePicked(hour, minute) },
         onTotalWorkChanged = {totalWork ->
             viewModel.onTotalWorkChanged(totalWork = totalWork)
         },
