@@ -28,14 +28,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.R
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.EXTRA_EXTRA_LARGE_PADDING
-import com.barisaslankan.grindpilot.ui.theme.LARGE_PADDING
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.EXTRA_EXTRA_LARGE_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.LARGE_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 
 @Composable
 fun WelcomeScreenContent(

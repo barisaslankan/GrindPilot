@@ -1,6 +1,6 @@
 package com.barisaslankan.grindpilot.feature.auth.presentation.welcome
 
-import com.barisaslankan.grindpilot.model.User
+import com.barisaslankan.grindpilot.core.model.User
 
 data class WelcomeScreenState (
     val isLoading : Boolean = false,

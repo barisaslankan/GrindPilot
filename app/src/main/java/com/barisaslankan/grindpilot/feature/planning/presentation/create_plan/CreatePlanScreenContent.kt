@@ -48,17 +48,17 @@ import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
 import com.barisaslankan.grindpilot.feature.planning.presentation.create_plan.component.DayPicker
 import com.barisaslankan.grindpilot.feature.planning.presentation.create_plan.component.PlanTemplate
-import com.barisaslankan.grindpilot.model.Day
-import com.barisaslankan.grindpilot.model.DurationType
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.ProgressType
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.HintColor
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.TextColor
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.core.model.DurationType
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.ProgressType
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.HintColor
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

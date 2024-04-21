@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)

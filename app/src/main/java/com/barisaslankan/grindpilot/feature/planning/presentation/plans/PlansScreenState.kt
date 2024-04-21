@@ -1,6 +1,6 @@
 package com.barisaslankan.grindpilot.feature.planning.presentation.plans
 
-import com.barisaslankan.grindpilot.model.Plan
+import com.barisaslankan.grindpilot.core.model.Plan
 
 data class PlansScreenState(
     val isLoading : Boolean = false,

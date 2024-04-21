@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.kizitonwose.calendar.core.CalendarDay
 
 @Composable

@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 
 @Composable
 fun IconButtonWithText(

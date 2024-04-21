@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature.set_goal.domain.repository.SetGoalRepository
-import com.barisaslankan.grindpilot.model.ProgressType
+import com.barisaslankan.grindpilot.core.model.ProgressType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

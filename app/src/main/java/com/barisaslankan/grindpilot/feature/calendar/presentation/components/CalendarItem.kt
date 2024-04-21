@@ -24,13 +24,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.TextColor
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 
 @Composable
 fun CalendarItem(

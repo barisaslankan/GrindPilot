@@ -1,14 +1,14 @@
 package com.barisaslankan.grindpilot.feature.set_goal.data.repository
 
-import com.barisaslankan.grindpilot.core.util.DB_GOALS
-import com.barisaslankan.grindpilot.core.util.DB_PLANS
-import com.barisaslankan.grindpilot.core.util.DB_USERS
+import com.barisaslankan.grindpilot.core.util.FIRESTORE_GOALS
+import com.barisaslankan.grindpilot.core.util.FIRESTORE_PLANS
+import com.barisaslankan.grindpilot.core.util.FIRESTORE_USERS
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
 import com.barisaslankan.grindpilot.feature.set_goal.domain.repository.SetGoalRepository
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.Plan
-import com.barisaslankan.grindpilot.model.ProgressType
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.Plan
+import com.barisaslankan.grindpilot.core.model.ProgressType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
@@ -26,7 +26,7 @@ class SetGoalRepositoryImpl @Inject constructor(
             val uuid = UUID.randomUUID().toString()
             val plan = Plan(id =uuid, ownerId = user!!.uid, goals =goals, name = name)
 
-            db.collection(DB_USERS).document(user.uid).collection(DB_PLANS).document(uuid).set(plan).await()
+            db.collection(FIRESTORE_USERS).document(user.uid).collection(FIRESTORE_PLANS).document(uuid).set(plan).await()
             Resource.Success(data = plan)
         }catch (e: Exception){
             Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")
@@ -52,7 +52,7 @@ class SetGoalRepositoryImpl @Inject constructor(
                 progress = 0.0,
                 workTime = workTime
             )
-            db.collection(DB_USERS).document(user.uid).collection(DB_GOALS).document(uuid).set(goal).await()
+            db.collection(FIRESTORE_USERS).document(user.uid).collection(FIRESTORE_GOALS).document(uuid).set(goal).await()
             Resource.Success(data = goal)
         }catch (e: Exception){
             Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")

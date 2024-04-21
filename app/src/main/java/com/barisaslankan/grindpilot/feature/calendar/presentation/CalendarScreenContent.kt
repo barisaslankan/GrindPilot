@@ -32,14 +32,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.barisaslankan.grindpilot.feature.calendar.presentation.components.CalendarDayItem
 import com.barisaslankan.grindpilot.feature.calendar.presentation.components.CalendarItem
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.ProgressType
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_BORDER_WIDTH
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.ProgressType
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 import com.kizitonwose.calendar.compose.VerticalCalendar
 
 @OptIn(ExperimentalMaterial3Api::class)

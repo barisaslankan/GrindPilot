@@ -1,8 +1,8 @@
 package com.barisaslankan.grindpilot.feature.calendar.domain.repository
 
 import com.barisaslankan.grindpilot.core.util.Resource
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.Plan
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.Plan
 import kotlinx.coroutines.flow.Flow
 
 interface CalendarRepository {

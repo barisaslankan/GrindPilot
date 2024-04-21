@@ -14,10 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.ProgressType
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.ProgressType
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 
 @Composable
 fun PlanTemplate(
@@ -53,7 +53,8 @@ fun PlanTemplate(
 fun PlanTemplatePreview(){
     PlanTemplate(
         modifier = Modifier,
-        selectedGoals = arrayListOf(Goal(
+        selectedGoals = arrayListOf(
+            Goal(
             "",
             "",
             "Goal1",
@@ -72,7 +73,8 @@ fun PlanTemplatePreview(){
                 progress = 0.0,
                 "",
                 100.0
-            )),
+            )
+        ),
         removeGoalFromPlan = {}
     )
 }

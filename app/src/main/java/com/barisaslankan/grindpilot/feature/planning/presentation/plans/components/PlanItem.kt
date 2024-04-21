@@ -14,13 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.model.Plan
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.SMALL_BORDER_WIDTH
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.TextColor
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.model.Plan
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 
 @Composable
 fun PlanItem(

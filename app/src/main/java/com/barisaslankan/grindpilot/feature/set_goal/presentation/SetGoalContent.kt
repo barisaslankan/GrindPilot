@@ -43,14 +43,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
 import com.barisaslankan.grindpilot.feature.set_goal.presentation.components.TaskItem
-import com.barisaslankan.grindpilot.model.ProgressType
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.HintColor
-import com.barisaslankan.grindpilot.ui.theme.MEDIUM_PADDING
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
-import com.barisaslankan.grindpilot.ui.theme.SMALL_PADDING
-import com.barisaslankan.grindpilot.ui.theme.TextColor
-import com.barisaslankan.grindpilot.ui.theme.Typography
+import com.barisaslankan.grindpilot.core.model.ProgressType
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.HintColor
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.TextColor
+import com.barisaslankan.grindpilot.core.ui.theme.Typography
 
 @Composable
 fun SetGoalContent(
@@ -77,7 +77,6 @@ fun SetGoalContent(
     taskText : String,
     onTaskTextChanged : (String) -> Unit
 ){
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -273,7 +272,6 @@ fun SetGoalContent(
                     }
                 )
             }
-
         }
     }
 }

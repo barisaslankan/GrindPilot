@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature.calendar.domain.repository.CalendarRepository
-import com.barisaslankan.grindpilot.model.Goal
+import com.barisaslankan.grindpilot.core.model.Goal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

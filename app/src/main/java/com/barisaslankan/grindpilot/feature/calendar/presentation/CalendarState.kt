@@ -1,7 +1,7 @@
 package com.barisaslankan.grindpilot.feature.calendar.presentation
 
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.Plan
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.Plan
 
 data class CalendarState(
     val isLoading : Boolean = false,

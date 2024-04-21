@@ -1,8 +1,8 @@
 package com.barisaslankan.grindpilot.feature.planning.presentation.create_plan
 
-import com.barisaslankan.grindpilot.model.Day
-import com.barisaslankan.grindpilot.model.DurationType
-import com.barisaslankan.grindpilot.model.Goal
+import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.core.model.DurationType
+import com.barisaslankan.grindpilot.core.model.Goal
 
 data class CreatePlanScreenState(
     val isLoading : Boolean = false,

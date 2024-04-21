@@ -1,8 +1,8 @@
 package com.barisaslankan.grindpilot.feature.set_goal.presentation
 
-import com.barisaslankan.grindpilot.model.Goal
-import com.barisaslankan.grindpilot.model.Plan
-import com.barisaslankan.grindpilot.model.ProgressType
+import com.barisaslankan.grindpilot.core.model.Goal
+import com.barisaslankan.grindpilot.core.model.Plan
+import com.barisaslankan.grindpilot.core.model.ProgressType
 
 data class SetGoalState(
     val isLoading : Boolean = false,

@@ -1,11 +1,11 @@
 package com.barisaslankan.grindpilot.feature.auth.data.repository
 
-import com.barisaslankan.grindpilot.core.mappers.toUser
-import com.barisaslankan.grindpilot.core.util.DB_USERS
+import com.barisaslankan.grindpilot.core.util.mappers.toUser
+import com.barisaslankan.grindpilot.core.util.FIRESTORE_USERS
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
 import com.barisaslankan.grindpilot.feature.auth.domain.repository.AuthRepository
-import com.barisaslankan.grindpilot.model.User
+import com.barisaslankan.grindpilot.core.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
@@ -44,7 +44,7 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun addUserToDb(user: User): Resource<User> {
         return try{
-            firebaseDb.collection(DB_USERS).document(user.userId).set(user).await()
+            firebaseDb.collection(FIRESTORE_USERS).document(user.userId).set(user).await()
             Resource.Success(data = user)
         }catch(e:Exception){
             Resource.Error(e.localizedMessage)
@@ -53,7 +53,7 @@ class AuthRepositoryImpl @Inject constructor(
 
         override suspend fun getUserFromDb(): Resource<User> {
             return try{
-                val documentSnapshot = firebaseDb.collection(DB_USERS).document(user!!.uid).get().await()
+                val documentSnapshot = firebaseDb.collection(FIRESTORE_USERS).document(user!!.uid).get().await()
                 val user = documentSnapshot.toObject(User::class.java)
                 Resource.Success(data = user!!)
             }catch(e:Exception){

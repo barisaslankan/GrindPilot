@@ -3,10 +3,10 @@ package com.barisaslankan.grindpilot.feature.auth.presentation.welcome
 import android.content.Intent
 import android.content.IntentSender
 import com.barisaslankan.grindpilot.BuildConfig
-import com.barisaslankan.grindpilot.core.mappers.toUser
+import com.barisaslankan.grindpilot.core.util.mappers.toUser
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
-import com.barisaslankan.grindpilot.model.User
+import com.barisaslankan.grindpilot.core.model.User
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase

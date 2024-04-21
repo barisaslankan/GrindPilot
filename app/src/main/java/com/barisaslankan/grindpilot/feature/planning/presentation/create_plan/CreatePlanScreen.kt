@@ -14,9 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.barisaslankan.grindpilot.model.Plan
-import com.barisaslankan.grindpilot.ui.theme.BackgroundColor
-import com.barisaslankan.grindpilot.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.model.Plan
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import java.util.UUID

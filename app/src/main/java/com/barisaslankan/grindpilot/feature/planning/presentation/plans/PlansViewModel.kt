@@ -3,6 +3,7 @@ package com.barisaslankan.grindpilot.feature.planning.presentation.plans
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
+import com.barisaslankan.grindpilot.feature.planning.domain.repository.PlanningRemoteDataSource
 import com.barisaslankan.grindpilot.feature.planning.domain.repository.PlanningRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,18 +22,18 @@ class PlansViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        fetchPlans()
+        getPlans()
     }
 
-    private fun fetchPlans(){
+    private fun getPlans(){
         _state.update {
             it.copy(isLoading = true)
         }
-        planningRepository.fetchPlans().onEach { result ->
+        planningRepository.getPlans().onEach { result ->
             when(result){
                 is Resource.Success -> {
                     _state.update {
-                        it.copy(isLoading = false, error = null, plans = result.data)
+                        it.copy(isLoading = false, error = null, plans = ArrayList(result.data ?: emptyList()))
                     }
                 }
                 is Resource.Error  -> {
@@ -43,4 +44,5 @@ class PlansViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
+
 }

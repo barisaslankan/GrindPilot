@@ -1,6 +1,6 @@
 package com.barisaslankan.grindpilot.feature.auth.presentation.login
 
-import com.barisaslankan.grindpilot.model.User
+import com.barisaslankan.grindpilot.core.model.User
 
 data class LoginScreenState(
     val isLoading : Boolean = false,
