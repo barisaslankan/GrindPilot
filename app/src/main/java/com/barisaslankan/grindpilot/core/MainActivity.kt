@@ -6,12 +6,11 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import com.barisaslankan.grindpilot.feature.auth.presentation.welcome.GoogleAuthUiClient
-import com.barisaslankan.grindpilot.feature.auth.presentation.welcome.WelcomeViewModel
+import com.barisaslankan.grindpilot.feature_auth.presentation.welcome.GoogleAuthUiClient
+import com.barisaslankan.grindpilot.feature_auth.presentation.welcome.WelcomeViewModel
 import com.barisaslankan.grindpilot.core.navigation.Screen
 import com.barisaslankan.grindpilot.core.navigation.SetUpNavGraph
 import com.barisaslankan.grindpilot.core.ui.theme.GrindPilotTheme

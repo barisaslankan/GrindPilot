@@ -5,14 +5,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.barisaslankan.grindpilot.feature.auth.presentation.login.LoginScreen
-import com.barisaslankan.grindpilot.feature.auth.presentation.signup.SignUpScreen
-import com.barisaslankan.grindpilot.feature.auth.presentation.welcome.WelcomeScreen
-import com.barisaslankan.grindpilot.feature.auth.presentation.welcome.WelcomeViewModel
-import com.barisaslankan.grindpilot.feature.calendar.presentation.CalendarScreen
-import com.barisaslankan.grindpilot.feature.planning.presentation.create_plan.CreatePlanScreen
-import com.barisaslankan.grindpilot.feature.planning.presentation.plans.PlansScreen
-import com.barisaslankan.grindpilot.feature.set_goal.presentation.SetGoalScreen
+import com.barisaslankan.grindpilot.feature_auth.presentation.login.LoginScreen
+import com.barisaslankan.grindpilot.feature_auth.presentation.signup.SignUpScreen
+import com.barisaslankan.grindpilot.feature_auth.presentation.welcome.WelcomeScreen
+import com.barisaslankan.grindpilot.feature_calendar.presentation.CalendarScreen
+import com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.CreatePlanScreen
+import com.barisaslankan.grindpilot.feature_planning.presentation.plans.PlansScreen
+import com.barisaslankan.grindpilot.feature_planning.presentation.set_goal.SetGoalScreen
+import com.barisaslankan.grindpilot.feature_auth.presentation.welcome.WelcomeViewModel
 
 @Composable
 fun SetUpNavGraph(
