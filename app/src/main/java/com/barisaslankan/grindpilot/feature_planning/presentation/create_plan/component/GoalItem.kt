@@ -68,14 +68,7 @@ fun GoalItem(
 fun GoalItemPreview(){
     GoalItem(
         goal = Goal(
-            "",
-            "",
-            "asdasf",
-            ProgressType.HOURS,
-            tasks = arrayListOf(),
-            progress = 0.0,
-            workTime = "",
-            0.0
+            name = "Goal1"
         ),
         removeGoalFromPlan = {}
     )

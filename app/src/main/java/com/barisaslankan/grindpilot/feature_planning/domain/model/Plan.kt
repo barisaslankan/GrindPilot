@@ -5,4 +5,5 @@ data class Plan(
     val ownerId: String = "",
     val name : String = "",
     val goals : ArrayList<Goal> = arrayListOf(),
+    val days : List<Day> = arrayListOf()
 )

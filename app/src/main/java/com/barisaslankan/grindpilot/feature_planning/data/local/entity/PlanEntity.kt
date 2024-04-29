@@ -8,7 +8,7 @@ import com.barisaslankan.grindpilot.core.util.PLANS_TABLE
 data class PlanEntity(
     @PrimaryKey
     val id : String = "",
-    val ownerId: String = "",
     val name : String = "",
     val goals : List<String> = arrayListOf(),
+    val days : List<String> = arrayListOf()
 )

@@ -41,7 +41,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
-import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
 import com.barisaslankan.grindpilot.core.ui.theme.HintColor
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
@@ -51,7 +51,6 @@ import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
 import com.barisaslankan.grindpilot.feature_planning.domain.model.DurationType
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
-import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
 import com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.component.DayPicker
 import com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.component.PlanTemplate
 
@@ -322,47 +321,19 @@ fun CreatePlanScreenContentPreview(){
         modifier = Modifier.fillMaxWidth(),
         goals = arrayListOf(
             Goal(
-                "",
-                "",
-                "Goal1",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0,
+                name = "Goal1"
             ),
             Goal(
-                "",
-                "",
-                "Goal2",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0
+                name = "Goal2"
             )
         ),
         selectedGoals = arrayListOf(
             Goal(
-                "",
-                "",
-                "Goal1",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0,
+                name = "Goal1"
             ),
             Goal(
-                "",
-                "",
-                "Goal2",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0
-            )
+                name = "Goal2"
+            ),
         ),
         addGoalToPlan = {},
         createPlan = {},
@@ -377,7 +348,7 @@ fun CreatePlanScreenContentPreview(){
         selectedDays = arrayListOf(),
         onDayPicked = {},
         onDurationTypeExpandedChanged = {},
-        displayedDurationType = "WEEKS",
+        displayedDurationType = DurationType.WEEKS.name,
         displayedDurationTypeChanged = {},
         isBottomSheetExpanded = false,
         onBottomSheetExpanded = {}

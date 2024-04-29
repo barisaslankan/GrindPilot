@@ -9,11 +9,10 @@ import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
 data class GoalEntity(
     @PrimaryKey
     val id : String = "",
-    val ownerId : String = "",
     val name : String = "",
     val progressType : ProgressType = ProgressType.HOURS,
     val tasks : List<String>? = null,
-    val progress : Double = 0.0,
+    val current : Double = 0.0,
     val workTime : String = "",
     val totalWork : Double = 0.0,
 )

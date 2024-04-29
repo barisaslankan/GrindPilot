@@ -12,4 +12,7 @@ interface PlanningLocalDataSource {
     suspend fun upsertPlans(plans : List<PlanEntity>)
     suspend fun clearPlans()
     suspend fun getGoalsByIds(goalIds: List<String>): List<GoalEntity>
+    suspend fun updateGoalProgress(goadId : String, current : Double)
+    suspend fun getGoalById(goalId : String) : GoalEntity
+    suspend fun insertGoal(goal : GoalEntity)
 }

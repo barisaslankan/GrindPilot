@@ -1,4 +1,4 @@
-package com.barisaslankan.grindpilot.feature_calendar.presentation.components
+package com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

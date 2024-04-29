@@ -1,4 +1,4 @@
-package com.barisaslankan.grindpilot.core.model
+package com.barisaslankan.grindpilot.feature_auth.domain.model
 
 data class User(
     val userId : String = "",

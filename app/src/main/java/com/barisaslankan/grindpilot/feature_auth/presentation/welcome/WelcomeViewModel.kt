@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature_auth.domain.repository.AuthRepository
-import com.barisaslankan.grindpilot.core.model.User
+import com.barisaslankan.grindpilot.feature_auth.domain.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

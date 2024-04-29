@@ -3,7 +3,7 @@ package com.barisaslankan.grindpilot.feature_planning.presentation.create_plan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
-import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.DurationType
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository

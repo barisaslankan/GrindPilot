@@ -14,9 +14,11 @@ interface PlanningRemoteDataSource {
         goals: ArrayList<Goal>
     ) : Resource<Plan>
     suspend fun createGoal(
+        id : String,
         name: String,
         progressType: ProgressType,
         tasks: ArrayList<String>?,
         workTime: String,
         totalWork: Double) : Resource<Goal>
+    suspend fun updateGoal(goal : Goal) : Resource<Goal>
 }

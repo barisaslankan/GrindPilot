@@ -6,7 +6,7 @@ import com.barisaslankan.grindpilot.BuildConfig
 import com.barisaslankan.grindpilot.feature_auth.util.mappers.toUser
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
-import com.barisaslankan.grindpilot.core.model.User
+import com.barisaslankan.grindpilot.feature_auth.domain.model.User
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase

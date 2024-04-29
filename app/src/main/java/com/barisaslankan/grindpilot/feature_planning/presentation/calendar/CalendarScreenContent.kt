@@ -1,4 +1,4 @@
-package com.barisaslankan.grindpilot.feature_calendar.presentation
+package com.barisaslankan.grindpilot.feature_planning.presentation.calendar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,26 +30,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.barisaslankan.grindpilot.feature_calendar.presentation.components.CalendarDayItem
-import com.barisaslankan.grindpilot.feature_calendar.presentation.components.CalendarItem
-import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
-import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
+import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarDayItem
+import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarItem
 import com.kizitonwose.calendar.compose.VerticalCalendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreenContent(
     modifier: Modifier,
-    goals : ArrayList<Goal>,
+    dailyPlan : Plan,
     datePickerState: DatePickerState,
     navigateToPlans : () -> Unit,
-    navigateToSetGoal : () -> Unit
+    navigateToSetGoal : () -> Unit,
+    calculateProgress : (Goal) -> Float
 ){
     Box(
         modifier = modifier
@@ -131,16 +132,17 @@ fun CalendarScreenContent(
                     .weight(5f)
             ) {
 
-                if(goals.size>0)
+                if(dailyPlan.goals.size>0)
                     LazyColumn(
                     contentPadding = PaddingValues(all = SMALL_PADDING),
                     verticalArrangement = Arrangement.spacedBy(SMALL_PADDING),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    items(goals) { goal ->
+                    items(dailyPlan.goals) { goal ->
                         CalendarItem(
                             modifier = Modifier.fillMaxWidth(),
                             goal = goal,
+                            calculateProgress = {calculateProgress(goal)}
                         )
                     }
                 } else Text(
@@ -164,11 +166,10 @@ fun CalendarScreenContent(
             ) {
 
                 Row(
-                    modifier.fillMaxSize()
+                    modifier.fillMaxWidth()
                 ) {
 
                 }
-
             }
         }
     }
@@ -181,29 +182,9 @@ fun CalendarScreenPreview(){
     CalendarScreenContent(
         modifier = Modifier,
         datePickerState = rememberDatePickerState(),
-        goals = arrayListOf(
-            Goal(
-                "",
-                "",
-                "",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0,
-            ),
-            Goal(
-                "",
-                "",
-                "",
-                ProgressType.HOURS,
-                tasks = null,
-                progress = 0.0,
-                "",
-                100.0
-            )
-        ),
         navigateToPlans = {},
-        navigateToSetGoal = {}
+        navigateToSetGoal = {},
+        calculateProgress = {0.4f},
+        dailyPlan = Plan()
     )
 }

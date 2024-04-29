@@ -5,10 +5,10 @@ import com.barisaslankan.grindpilot.core.util.FIRESTORE_PLANS
 import com.barisaslankan.grindpilot.core.util.FIRESTORE_USERS
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
-import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRemoteDataSource
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRemoteDataSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
@@ -68,6 +68,7 @@ class PlanningRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun createGoal(
+        id : String,
         name: String,
         progressType: ProgressType,
         tasks: ArrayList<String>?,
@@ -75,11 +76,20 @@ class PlanningRemoteDataSourceImpl @Inject constructor(
         totalWork: Double
     ): Resource<Goal> {
         return try{
-            val uuid = UUID.randomUUID().toString()
-            val goal = Goal(id = uuid, ownerId = user!!.uid, name = name, progressType = progressType, tasks = tasks, workTime = workTime, totalWork = totalWork)
+            val goal = Goal(id = id, ownerId = user!!.uid, name = name, progressType = progressType, tasks = tasks, workTime = workTime, totalWork = totalWork)
             db.collection(FIRESTORE_USERS).document(goal.ownerId).collection(FIRESTORE_GOALS).document(goal.id).set(goal).await()
             Resource.Success(data = goal)
         }catch (e: Exception){
+            Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")
+        }
+    }
+
+    override suspend fun updateGoal(goal: Goal) : Resource<Goal> {
+        return try {
+            val updatedCurrent = mapOf("current" to goal.current)
+            db.collection(FIRESTORE_USERS).document(goal.ownerId).collection(FIRESTORE_GOALS).document(goal.id).update(updatedCurrent).await()
+            Resource.Success(data = goal)
+        }catch (e : Exception){
             Resource.Error(message = e.localizedMessage?.toString() ?: "Something went wrong!")
         }
     }

@@ -1,4 +1,4 @@
-package com.barisaslankan.grindpilot.feature_calendar.presentation
+package com.barisaslankan.grindpilot.feature_planning.presentation.calendar
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
 import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,11 +28,9 @@ fun CalendarScreen(
     navigateToSetGoal : () -> Unit,
     navigateToPlans : () -> Unit
 ){
-
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = Calendar.getInstance().timeInMillis)
-
 
     LaunchedEffect(key1 = state.error) {
         state.error?.let {error ->
@@ -57,10 +56,11 @@ fun CalendarScreen(
         CalendarScreenContent(
             modifier = Modifier
                 .fillMaxWidth(),
-            state.goals ?: arrayListOf(),
+            dailyPlan = state.todaysPlan ?: Plan(),
             datePickerState = datePickerState,
             navigateToPlans = navigateToPlans,
-            navigateToSetGoal = navigateToSetGoal
+            navigateToSetGoal = navigateToSetGoal,
+            calculateProgress = { viewModel.calculateProgress(it) },
         )
     }
 }

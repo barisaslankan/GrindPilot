@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography

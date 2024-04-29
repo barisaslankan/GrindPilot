@@ -22,7 +22,7 @@ class PlanningLocalDataSourceImpl(
     }
 
     override suspend fun clearGoals() {
-        goalDao.deleteAllGoals()
+        goalDao.clearGoals()
     }
 
     override fun getAllPlans(): Flow<List<PlanEntity>> {
@@ -39,6 +39,18 @@ class PlanningLocalDataSourceImpl(
 
     override suspend fun getGoalsByIds(goalIds: List<String>): List<GoalEntity> {
         return goalDao.getGoalsByIds(goalIds)
+    }
+
+    override suspend fun updateGoalProgress(goadId: String, current: Double) {
+        return goalDao.updateGoalProgress(goadId, current)
+    }
+
+    override suspend fun getGoalById(goalId: String): GoalEntity {
+        return goalDao.getGoalById(goalId)
+    }
+
+    override suspend fun insertGoal(goal: GoalEntity) {
+        return goalDao.insertGoal(goal = goal)
     }
 
 }

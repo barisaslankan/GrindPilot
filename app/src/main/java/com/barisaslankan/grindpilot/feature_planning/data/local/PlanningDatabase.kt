@@ -8,7 +8,7 @@ import com.barisaslankan.grindpilot.feature_planning.data.local.dao.PlansDao
 import com.barisaslankan.grindpilot.feature_planning.data.local.entity.GoalEntity
 import com.barisaslankan.grindpilot.feature_planning.data.local.entity.PlanEntity
 
-@Database(entities = [GoalEntity::class, PlanEntity::class], version = 1)
+@Database(entities = [GoalEntity::class, PlanEntity::class], version = 1, exportSchema = false)
 @TypeConverters(DatabaseConverter::class)
 abstract class PlanningDatabase() : RoomDatabase() {
     abstract fun goalsDao() : GoalsDao

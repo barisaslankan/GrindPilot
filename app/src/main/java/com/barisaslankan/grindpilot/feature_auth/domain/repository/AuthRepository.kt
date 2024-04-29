@@ -1,7 +1,7 @@
 package com.barisaslankan.grindpilot.feature_auth.domain.repository
 
 import com.barisaslankan.grindpilot.core.util.Resource
-import com.barisaslankan.grindpilot.core.model.User
+import com.barisaslankan.grindpilot.feature_auth.domain.model.User
 
 interface AuthRepository {
     suspend fun signInWithEmailAndPassword(email : String, password : String) : Resource<User>

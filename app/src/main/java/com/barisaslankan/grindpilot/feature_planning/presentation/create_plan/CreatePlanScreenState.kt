@@ -1,6 +1,6 @@
 package com.barisaslankan.grindpilot.feature_planning.presentation.create_plan
 
-import com.barisaslankan.grindpilot.core.model.Day
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.DurationType
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 

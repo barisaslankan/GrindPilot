@@ -5,7 +5,7 @@ import com.barisaslankan.grindpilot.core.util.FIRESTORE_USERS
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.core.util.await
 import com.barisaslankan.grindpilot.feature_auth.domain.repository.AuthRepository
-import com.barisaslankan.grindpilot.core.model.User
+import com.barisaslankan.grindpilot.feature_auth.domain.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject

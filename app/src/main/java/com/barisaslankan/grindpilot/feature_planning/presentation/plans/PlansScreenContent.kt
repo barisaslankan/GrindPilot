@@ -112,24 +112,10 @@ fun PlansScreenContentPreview(){
                 ownerId = "",
                 goals = arrayListOf(
                 Goal(
-                    "",
-                    "",
-                    "",
-                    ProgressType.HOURS,
-                    tasks = null,
-                    progress = 0.0,
-                    "",
-                    100.0,
+                    name = "Goal1"
                 ),
                 Goal(
-                    "",
-                    "",
-                    "",
-                    ProgressType.HOURS,
-                    tasks = null,
-                    progress = 0.0,
-                    "",
-                    100.0
+                    name = "Goal2"
                 )
             )
         ),
@@ -139,24 +125,10 @@ fun PlansScreenContentPreview(){
                 ownerId = "",
                 goals = arrayListOf(
                     Goal(
-                        "",
-                        "",
-                        "",
-                        ProgressType.HOURS,
-                        tasks = null,
-                        progress = 0.0,
-                        "",
-                        100.0,
+                        name = "Goal1"
                     ),
                     Goal(
-                        "",
-                        "",
-                        "",
-                        ProgressType.HOURS,
-                        tasks = null,
-                        progress = 0.0,
-                        "",
-                        100.0
+                        name = "Goal2"
                     )
                 )
             ),

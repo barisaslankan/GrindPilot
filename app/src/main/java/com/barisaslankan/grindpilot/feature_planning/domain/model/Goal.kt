@@ -6,7 +6,7 @@ data class Goal(
     val name : String = "",
     val progressType : ProgressType = ProgressType.HOURS,
     val tasks : ArrayList<String>? = null,
-    val progress : Double = 0.0,
+    val current : Double = 0.0,
     val workTime : String = "",
     val totalWork : Double = 0.0,
 )
