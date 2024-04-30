@@ -6,6 +6,7 @@ import com.barisaslankan.grindpilot.feature_planning.data.local.entity.PlanEntit
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import kotlinx.coroutines.flow.Flow
 
 interface PlanningRepository {
@@ -20,10 +21,9 @@ interface PlanningRepository {
     suspend fun createGoal(
         name: String,
         progressType: ProgressType,
-        tasks: ArrayList<String>?,
+        tasks: List<Task>?,
         workTime: String,
         totalWork: Double
     ) : Resource<Goal>
-
     suspend fun updateGoalProgress(goalId : String, current : Double) : Resource<Boolean>
 }

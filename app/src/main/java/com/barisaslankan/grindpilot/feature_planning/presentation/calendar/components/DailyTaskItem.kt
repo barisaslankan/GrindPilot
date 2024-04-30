@@ -18,11 +18,13 @@ import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 
 @Composable
 fun DailyTaskItem(
     modifier: Modifier = Modifier,
-    task: String,
+    task: Task,
+    onTaskCheckedChanged : (Boolean, Task) -> Unit
 ){
 
     val checkedState = remember { mutableStateOf(false) }
@@ -33,7 +35,9 @@ fun DailyTaskItem(
     ) {
         Checkbox(
             checked = checkedState.value,
-            onCheckedChange = { checkedState.value = !checkedState.value },
+            onCheckedChange = {
+                checkedState.value = it
+                onTaskCheckedChanged(checkedState.value, task) },
             colors = CheckboxDefaults.colors().copy(
                 checkedBoxColor = BackgroundColor,
                 uncheckedBoxColor = BackgroundColor,
@@ -45,7 +49,7 @@ fun DailyTaskItem(
            modifier = modifier
                 .align(Alignment.CenterVertically)
                 .wrapContentHeight(align = Alignment.CenterVertically),
-            text = task,
+            text = task.taskName,
             textAlign = TextAlign.Center,
             style = Typography.bodyMedium,
             color = TextColor

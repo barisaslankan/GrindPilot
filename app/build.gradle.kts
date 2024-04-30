@@ -111,4 +111,6 @@ dependencies {
     implementation("com.kizitonwose.calendar:compose:2.5.0")
 
     implementation("com.patrykandpatrick.vico:compose-m3:2.0.0-alpha.12")
+
+    implementation("com.squareup.moshi:moshi:1.12.0")
 }

@@ -8,6 +8,7 @@ import com.barisaslankan.grindpilot.core.util.await
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRemoteDataSource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -71,7 +72,7 @@ class PlanningRemoteDataSourceImpl @Inject constructor(
         id : String,
         name: String,
         progressType: ProgressType,
-        tasks: ArrayList<String>?,
+        tasks: List<Task>,
         workTime: String,
         totalWork: Double
     ): Resource<Goal> {

@@ -23,11 +23,12 @@ import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_BORDER_WIDTH
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 
 @Composable
 fun TaskItem(
-    task : String,
-    onTaskRemoved : (String) -> Unit
+    task : Task,
+    onTaskRemoved : (Task) -> Unit
 ){
     Box(
         modifier = Modifier
@@ -44,7 +45,7 @@ fun TaskItem(
         ) {
 
             Text(
-                text = task,
+                text = task.taskName,
                 style = Typography.bodyMedium,
                 color = OrangeGP
             )
@@ -74,7 +75,7 @@ fun TaskItem(
 @Composable
 fun TaskItemPreview(){
     TaskItem(
-        task = "asdasd",
+        task = Task(),
         onTaskRemoved = {}
     )
 }

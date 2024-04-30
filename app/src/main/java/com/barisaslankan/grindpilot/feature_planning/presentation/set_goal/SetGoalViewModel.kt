@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,7 @@ class SetGoalViewModel @Inject constructor(
     fun creteGoal(
         name: String,
         progressType: ProgressType,
-        tasks: ArrayList<String>?,
+        tasks: List<Task>?,
         workTime: String,
         totalWork: Double
     ){
@@ -45,10 +46,10 @@ class SetGoalViewModel @Inject constructor(
         }
     }
 
-    fun onTaskRemoved(task : String){
+    fun onTaskRemoved(task : Task){
         _state.value = _state.value.copy(tasks = ArrayList(_state.value.tasks - task))
     }
-    fun onTaskAdded(task : String){
+    fun onTaskAdded(task : Task){
         _state.value = _state.value.copy(tasks = ArrayList(_state.value.tasks + task))
     }
     fun onProgressTypeExpandedChanged(isExpanded : Boolean){
@@ -60,7 +61,7 @@ class SetGoalViewModel @Inject constructor(
     fun onProgressTypeChanged(progressType: ProgressType){
         _state.value = _state.value.copy(progressType = progressType)
     }
-    fun onTaskChanged(task : String){
+    fun onTaskChanged(task : Task){
         _state.value = _state.value.copy(task = task)
     }
     fun onTotalWorkChanged(totalWork : String){

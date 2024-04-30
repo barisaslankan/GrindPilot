@@ -38,6 +38,7 @@ import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarDayItem
 import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarItem
 import com.kizitonwose.calendar.compose.VerticalCalendar
@@ -50,7 +51,8 @@ fun CalendarScreenContent(
     datePickerState: DatePickerState,
     navigateToPlans : () -> Unit,
     navigateToSetGoal : () -> Unit,
-    calculateProgress : (Goal) -> Float
+    calculateProgress : (Goal) -> Float,
+    onTaskCheckedChanged : (Boolean, Task, Goal) -> Unit
 ){
     Box(
         modifier = modifier
@@ -142,7 +144,8 @@ fun CalendarScreenContent(
                         CalendarItem(
                             modifier = Modifier.fillMaxWidth(),
                             goal = goal,
-                            calculateProgress = {calculateProgress(goal)}
+                            calculateProgress = {calculateProgress(goal)},
+                            onTaskCheckedChanged = onTaskCheckedChanged
                         )
                     }
                 } else Text(
@@ -185,6 +188,7 @@ fun CalendarScreenPreview(){
         navigateToPlans = {},
         navigateToSetGoal = {},
         calculateProgress = {0.4f},
-        dailyPlan = Plan()
+        dailyPlan = Plan(),
+        onTaskCheckedChanged = { isChecked , task, goal -> }
     )
 }

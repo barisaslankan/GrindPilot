@@ -41,8 +41,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
-import com.barisaslankan.grindpilot.feature.feature_planning.presentation.set_goal.set_goal.presentation.components.TaskItem
-import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
 import com.barisaslankan.grindpilot.core.ui.theme.HintColor
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
@@ -50,27 +48,30 @@ import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
+import com.barisaslankan.grindpilot.feature.feature_planning.presentation.set_goal.set_goal.presentation.components.TaskItem
+import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 
 @Composable
 fun SetGoalContent(
     modifier: Modifier,
     isProgressTypeExpanded : Boolean,
     goalName : String,
-    task : String,
-    tasks : ArrayList<String>,
+    task : Task,
+    tasks : List<Task>?,
     totalWork : Double,
     onProgressTypeExpandedChanged : (Boolean) -> Unit,
     onGoalNameChanged : (String) -> Unit,
     onProgressTypeChanged : (ProgressType) -> Unit,
     onDisplayedProgressTypeChanged: (String) -> Unit,
     displayedProgressType : String,
-    onTaskChanged : (String) -> Unit,
-    onTaskAdded : (String) -> Unit,
+    onTaskChanged : (Task) -> Unit,
+    onTaskAdded : (Task) -> Unit,
     onTotalWorkChanged : (String) -> Unit,
     onGoalSaved : () -> Unit,
-    onTaskRemoved : (String) -> Unit,
+    onTaskRemoved : (Task) -> Unit,
     onBackPressed : () -> Unit,
-    createTask :(String) -> Unit,
+    createTask :(Task) -> Unit,
     onTaskDialogDisplayed : (Boolean) -> Unit,
     displayTaskDialog : Boolean,
     taskText : String,
@@ -202,12 +203,15 @@ fun SetGoalContent(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
             ){
-                items(tasks){task ->
-                    Row(modifier = modifier) {
-                       TaskItem(task = task) {
-                           onTaskRemoved(it)
-                       }
-                    }
+                tasks?.let {
+                    items(it){task ->
+                        Row(modifier = modifier) {
+                            TaskItem(
+                                task = task,
+                                onTaskRemoved = onTaskRemoved
+                            )
+                        }
+                }
                 }
             }
 
@@ -258,7 +262,7 @@ fun SetGoalContent(
                     },
                     confirmButton = {
                         Button(onClick = {
-                            createTask(taskText)
+                            createTask(task)
                             onTaskDialogDisplayed(false)
                             onTaskTextChanged("")
                         }) {
@@ -344,12 +348,10 @@ fun SetGoalContentPreview(){
         onTaskAdded = {},
         onTaskChanged = {},
         onTotalWorkChanged = {},
-        task = "Task",
+        task = Task(),
         totalWork = 0.0,
         onGoalSaved = {},
-        tasks = arrayListOf(
-            "Task1", "Task2", "Task3"
-        ),
+        tasks = emptyList(),
         onTaskRemoved = {},
         onBackPressed = {},
         createTask = {},

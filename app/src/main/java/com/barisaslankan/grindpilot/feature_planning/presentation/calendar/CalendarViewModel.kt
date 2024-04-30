@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -55,6 +56,18 @@ class CalendarViewModel @Inject constructor(
 
     fun calculateProgress(goal : Goal) : Float{
         return (goal.totalWork / goal.current).toFloat()
+    }
+
+    fun onTaskCheckedChanged(isChecked : Boolean, task : Task, goal : Goal){
+        viewModelScope.launch {
+            if(isChecked){
+                planningRepository.updateGoalProgress(goalId = goal.id, current = goal.current + task.weight)
+            }else {
+                planningRepository.updateGoalProgress(goalId = goal.id, current = goal.current - task.weight)
+            }
+            planningRepository.updateGoals()
+        }
+
     }
 
     private fun getCurrentDay(): Day {

@@ -61,6 +61,9 @@ fun CalendarScreen(
             navigateToPlans = navigateToPlans,
             navigateToSetGoal = navigateToSetGoal,
             calculateProgress = { viewModel.calculateProgress(it) },
+            onTaskCheckedChanged = {isChecked, task, goal ->
+                viewModel.onTaskCheckedChanged(isChecked,task,goal)
+            }
         )
     }
 }

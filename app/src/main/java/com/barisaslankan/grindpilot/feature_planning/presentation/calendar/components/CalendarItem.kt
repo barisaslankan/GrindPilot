@@ -35,14 +35,16 @@ import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 
 @Composable
 fun CalendarItem(
     modifier : Modifier,
     goal : Goal,
-    calculateProgress : (Goal) -> Float
+    calculateProgress : (Goal) -> Float,
+    onTaskCheckedChanged : (Boolean, Task, Goal) -> Unit
 ) {
-    val expandedState = remember { mutableStateOf(false) }
+    val expandedState = remember { mutableStateOf(true) }
 
     Column(
         modifier = modifier
@@ -101,20 +103,21 @@ fun CalendarItem(
                 )
             }
         }
-        if(expandedState.value){
-
+        if(expandedState.value && !goal.tasks.isNullOrEmpty()){
             LazyColumn(
                 contentPadding = PaddingValues(all = MEDIUM_PADDING),
                 verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING),
                 horizontalAlignment = Alignment.CenterHorizontally) {
-                items(goal.tasks!!.toList()){task ->
+                items(goal.tasks.toList()){goalTask ->
                     DailyTaskItem(
                         modifier = modifier,
-                        task = task
+                        task = goalTask,
+                        onTaskCheckedChanged = { isChecked, task ->
+                            onTaskCheckedChanged(isChecked, task, goal)
+                        }
                     )
                 }
             }
-
         }
     }
 }
@@ -124,7 +127,8 @@ fun CalendarItem(
 fun CalendarItemPreview(){
     CalendarItem(
         modifier = Modifier,
-        goal = Goal(name = "Chess", tasks = arrayListOf("asdasd", "asdasd")),
-        calculateProgress = {0.4f}
+        goal = Goal(name = "Chess", tasks = arrayListOf()),
+        calculateProgress = {0.4f},
+        onTaskCheckedChanged = {isChecked , task, goal ->}
     )
 }

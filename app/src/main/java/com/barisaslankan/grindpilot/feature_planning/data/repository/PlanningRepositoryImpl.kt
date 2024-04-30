@@ -11,6 +11,7 @@ import com.barisaslankan.grindpilot.feature_planning.data.util.mappers.toPlanEnt
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningLocalDataSource
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRemoteDataSource
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository
@@ -105,17 +106,19 @@ class PlanningRepositoryImpl @Inject constructor(
     override suspend fun createGoal(
         name: String,
         progressType: ProgressType,
-        tasks: ArrayList<String>?,
+        tasks: List<Task>?,
         workTime: String,
         totalWork: Double
     ): Resource<Goal> {
         val uuid = UUID.randomUUID().toString()
         return try {
+            val tasksJson = tasks?.let { Task.toJson(it) }
+
             val goalEntity = GoalEntity(
                 id = uuid,
                 name = name,
                 progressType = progressType,
-                tasks = tasks,
+                tasks = tasksJson,
                 workTime = workTime,
                 totalWork = totalWork
             )
@@ -125,7 +128,7 @@ class PlanningRepositoryImpl @Inject constructor(
                     id = uuid,
                     name = name,
                     progressType = progressType,
-                    tasks = tasks,
+                    tasks = tasks ?: emptyList(),
                     workTime = workTime,
                     totalWork = totalWork
                 )

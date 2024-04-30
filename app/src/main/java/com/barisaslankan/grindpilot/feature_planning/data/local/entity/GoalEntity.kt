@@ -11,7 +11,7 @@ data class GoalEntity(
     val id : String = "",
     val name : String = "",
     val progressType : ProgressType = ProgressType.HOURS,
-    val tasks : List<String>? = null,
+    val tasks : String? = "",
     val current : Double = 0.0,
     val workTime : String = "",
     val totalWork : Double = 0.0,
