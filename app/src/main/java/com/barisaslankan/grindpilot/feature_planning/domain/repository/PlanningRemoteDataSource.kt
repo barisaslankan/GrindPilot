@@ -11,8 +11,11 @@ interface PlanningRemoteDataSource {
     fun fetchGoals() : Flow<Resource<ArrayList<Goal>>>
     fun fetchPlans() : Flow<Resource<ArrayList<Plan>>>
     suspend fun createPlan(
+        id: String,
         name: String,
-        goals: ArrayList<Goal>
+        goals: List<Goal>,
+        days : List<String>,
+        planDuration : Double
     ) : Resource<Plan>
     suspend fun createGoal(
         id : String,

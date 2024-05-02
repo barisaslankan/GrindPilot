@@ -6,6 +6,7 @@ import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.DurationType
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -52,14 +53,15 @@ class CreatePlanViewModel @Inject constructor(
 
     fun createPlan(
         name: String,
-        goals: ArrayList<Goal>
+        goals: ArrayList<Goal>,
+        days : List<String>,
+        duration : Double
     ){
         viewModelScope.launch {
             _state.update {
                 it.copy(isLoading = true)
             }
-            val result = planningRepository.createPlan(name, goals)
-
+            val result = planningRepository.createPlan(name, goals, days, duration)
             when(result){
                 is Resource.Error -> {
                     _state.update {
@@ -75,6 +77,28 @@ class CreatePlanViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun onTaskWeightChanged(goal : Goal, task : Task, weight : Double){
+        _state.update {state ->
+            val updatedSelectedGoals = state.selectedGoals.map { selectedGoal ->
+                if(selectedGoal.id == goal.id) {
+                    val updatedTasks = selectedGoal.tasks?.map { selectedTask ->
+                        if(selectedTask.id == task.id){
+                            selectedTask.copy(weight = weight)
+                        }else {
+                            selectedTask
+                        }
+                    }
+                    selectedGoal.copy(tasks = updatedTasks)
+                }else {
+                    selectedGoal
+                }
+            }
+            state.copy(
+                selectedGoals = ArrayList(updatedSelectedGoals)
+            )
         }
     }
 
@@ -131,7 +155,7 @@ class CreatePlanViewModel @Inject constructor(
             } else {
                 currentState.selectedDays + day
             }
-            currentState.copy(selectedDays = ArrayList(updatedSelectedDays))
+            currentState.copy(selectedDays = updatedSelectedDays)
         }
     }
 

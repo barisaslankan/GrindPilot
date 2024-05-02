@@ -15,4 +15,5 @@ interface PlanningLocalDataSource {
     suspend fun updateGoalProgress(goadId : String, current : Double)
     suspend fun getGoalById(goalId : String) : GoalEntity
     suspend fun insertGoal(goal : GoalEntity)
+    suspend fun insertPlan(plan : PlanEntity)
 }

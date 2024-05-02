@@ -53,4 +53,8 @@ class PlanningLocalDataSourceImpl(
         return goalDao.insertGoal(goal = goal)
     }
 
+    override suspend fun insertPlan(plan: PlanEntity) {
+        return plansDao.insertPlan(plan)
+    }
+
 }

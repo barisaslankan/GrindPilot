@@ -24,5 +24,5 @@ interface GoalsDao {
     @Query("SELECT * FROM $GOALS_TABLE WHERE id = :goalId")
     suspend fun getGoalById(goalId : String) : GoalEntity
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertGoal(goal : GoalEntity)
+    suspend fun insertGoal(goal : GoalEntity)
 }

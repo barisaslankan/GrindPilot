@@ -4,7 +4,6 @@ import com.barisaslankan.grindpilot.core.util.NetworkHelper
 import com.barisaslankan.grindpilot.core.util.Resource
 import com.barisaslankan.grindpilot.feature_planning.data.local.entity.GoalEntity
 import com.barisaslankan.grindpilot.feature_planning.data.local.entity.PlanEntity
-import com.barisaslankan.grindpilot.feature_planning.data.util.mappers.DayMapper.mapStringToDay
 import com.barisaslankan.grindpilot.feature_planning.data.util.mappers.toGoal
 import com.barisaslankan.grindpilot.feature_planning.data.util.mappers.toGoalEntity
 import com.barisaslankan.grindpilot.feature_planning.data.util.mappers.toPlanEntity
@@ -67,7 +66,8 @@ class PlanningRepositoryImpl @Inject constructor(
                     "",
                     it.name,
                     ArrayList(getGoalsByIds(it.goals).map { goalEntity -> goalEntity.toGoal("") }),
-                    it.days.map { dayString -> mapStringToDay(dayString) }
+                    it.days,
+                    it.planDuration
             )
             }))
         } catch (e: Exception) {
@@ -98,9 +98,45 @@ class PlanningRepositoryImpl @Inject constructor(
 
     override suspend fun createPlan(
         name: String,
-        goals: ArrayList<Goal>
+        goals: List<Goal>,
+        days : List<String>,
+        duration : Double
     ): Resource<Plan> {
-        return remoteDataSource.createPlan(name, goals)
+        val uuid = UUID.randomUUID().toString()
+        return try {
+            val goalEntities = goals.map { it.toGoalEntity() }
+            val goalsJson = goalEntities.map { goalEntity -> GoalEntity.toJson(goalEntity) }
+
+            val planEntity = PlanEntity(
+                id = uuid,
+                name = name,
+                goals = goalsJson,
+                days = days,
+                planDuration = duration
+            )
+            localDataSource.insertPlan(planEntity)
+            if(networkHelper.isNetworkConnected()){
+                val result = remoteDataSource.createPlan(
+                    id = uuid,
+                    name = name,
+                    goals = goals,
+                    days = days,
+                    planDuration = duration
+                )
+                when(result){
+                    is Resource.Success -> {
+                        Resource.Success(Plan())
+                    }
+                    is Resource.Error -> {
+                        return Resource.Error(message = "Remote update failed")
+                    }
+                }
+            }else {
+                Resource.Error("Please check your connection")
+            }
+        }catch (e: Exception){
+            Resource.Error(message = e.localizedMessage ?: "Something went wrong!")
+        }
     }
 
     override suspend fun createGoal(
@@ -117,7 +153,7 @@ class PlanningRepositoryImpl @Inject constructor(
             val goalEntity = GoalEntity(
                 id = uuid,
                 name = name,
-                progressType = progressType,
+                progressType = progressType.name,
                 tasks = tasksJson,
                 workTime = workTime,
                 totalWork = totalWork

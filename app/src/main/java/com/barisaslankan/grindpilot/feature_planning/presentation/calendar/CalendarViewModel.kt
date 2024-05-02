@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +29,7 @@ class CalendarViewModel @Inject constructor(
     }
 
     private fun getDailyPlan(){
-        val today = getCurrentDay()
+        val today = getCurrentDay().toString().substring(0,2).uppercase(Locale.getDefault())
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             planningRepository.getPlans().collect{result ->

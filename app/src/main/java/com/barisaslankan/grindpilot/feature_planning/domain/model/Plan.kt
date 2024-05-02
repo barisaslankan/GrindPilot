@@ -5,5 +5,14 @@ data class Plan(
     val ownerId: String = "",
     val name : String = "",
     val goals : ArrayList<Goal> = arrayListOf(),
-    val days : List<Day> = arrayListOf()
+    val days : List<String> = emptyList(),
+    val planDuration: Double = 0.0
 )
+
+enum class DurationType{
+    DAYS, WEEKS, MONTHS
+}
+
+enum class Day {
+    MON, TUE, WED, THU, FRI, SAT, SUN
+}

@@ -194,7 +194,7 @@ fun SetGoalContent(
                 IconButtonWithText(
                     onClick = {onTaskDialogDisplayed(true)},
                     icon = Icons.Default.Add,
-                    text = "Add Task",
+                    text = "Add Milestone",
                     color = OrangeGP
                 )
             }
@@ -239,7 +239,7 @@ fun SetGoalContent(
                 AlertDialog(
                     onDismissRequest = { onTaskDialogDisplayed(false) },
                     title = { Text(
-                        text = "Add Task",
+                        text = "Add Milestone",
                         style = Typography.titleSmall,
                         color = OrangeGP
                     ) },

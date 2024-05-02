@@ -16,7 +16,9 @@ interface PlanningRepository {
     suspend fun updatePlans(): Resource<List<PlanEntity>>
     suspend fun createPlan(
         name: String,
-        goals: ArrayList<Goal>
+        goals: List<Goal>,
+        days : List<String>,
+        duration : Double
     ) : Resource<Plan>
     suspend fun createGoal(
         name: String,

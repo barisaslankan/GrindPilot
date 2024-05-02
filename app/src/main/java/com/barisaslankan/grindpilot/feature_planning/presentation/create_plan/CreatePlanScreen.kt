@@ -61,7 +61,7 @@ fun CreatePlanScreen(
                 viewModel.addGoalToPlan(goal)
             },
             createPlan = {
-                viewModel.createPlan(name = state.name, goals = state.goals)
+                viewModel.createPlan(name = state.name, goals = state.selectedGoals, days = state.selectedDays.map { it.name }, duration = state.planDuration)
                 navigateToCalendar()
             },
             onBackButtonClicked = onBackButtonClicked,
@@ -72,13 +72,14 @@ fun CreatePlanScreen(
             isDurationTypeExpanded = state.isDurationTypeExpanded,
             durationText = state.durationText,
             onDurationTextChanged = {viewModel.onDurationTextChanged(it)},
-            selectedDays = state.selectedDays,
+            selectedDays = ArrayList(state.selectedDays),
             onDayPicked = {viewModel.onDayPicked(it)},
             onDurationTypeExpandedChanged = {viewModel.onDurationTypeExpanded(it)},
             displayedDurationType = state.displayedDurationType,
             displayedDurationTypeChanged = {viewModel.onDisplayedDurationTypeChanged(it)},
             onBottomSheetExpanded = { viewModel.onBottomSheetExpanded(it) },
-            isBottomSheetExpanded = state.isBottomSheetExpanded
+            isBottomSheetExpanded = state.isBottomSheetExpanded,
+            onTaskWeightChanged = {goal, task, weight -> viewModel.onTaskWeightChanged(goal = goal, task = task, weight = weight)}
         )
     }
 }

@@ -8,6 +8,6 @@ fun Plan.toPlanEntity() : PlanEntity{
         id = id,
         name = name,
         goals = goals.map { it.id },
-        days = days.map { it.name }
+        days = days
     )
 }

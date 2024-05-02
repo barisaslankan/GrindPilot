@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.util.UUID
 import javax.inject.Inject
 
 class PlanningRemoteDataSourceImpl @Inject constructor(
@@ -55,12 +54,14 @@ class PlanningRemoteDataSourceImpl @Inject constructor(
     }
 
     override suspend fun createPlan(
+        id: String,
         name: String,
-        goals: ArrayList<Goal>
+        goals: List<Goal>,
+        days : List<String>,
+        planDuration : Double
     ): Resource<Plan> {
         return try {
-            val uuid = UUID.randomUUID().toString()
-            val plan = Plan(id = uuid, ownerId = user!!.uid, name = name, goals = goals)
+            val plan = Plan(id = id, ownerId = user!!.uid, name = name, goals = ArrayList(goals), days = days, planDuration = planDuration)
             db.collection(FIRESTORE_USERS).document(plan.ownerId).collection(FIRESTORE_PLANS).document(plan.id).set(plan).await()
             Resource.Success(plan)
         }catch (e: Exception){
@@ -77,7 +78,7 @@ class PlanningRemoteDataSourceImpl @Inject constructor(
         totalWork: Double
     ): Resource<Goal> {
         return try{
-            val goal = Goal(id = id, ownerId = user!!.uid, name = name, progressType = progressType, tasks = tasks, workTime = workTime, totalWork = totalWork)
+            val goal = Goal(id = id, ownerId = user!!.uid, name = name, progressType = progressType.name, tasks = tasks, workTime = workTime, totalWork = totalWork)
             db.collection(FIRESTORE_USERS).document(goal.ownerId).collection(FIRESTORE_GOALS).document(goal.id).set(goal).await()
             Resource.Success(data = goal)
         }catch (e: Exception){

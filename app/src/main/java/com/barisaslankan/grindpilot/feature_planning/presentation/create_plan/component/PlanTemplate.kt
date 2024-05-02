@@ -1,49 +1,60 @@
 package com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
-import com.barisaslankan.grindpilot.feature_planning.domain.model.ProgressType
+import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.CORNER_RADIUS
+import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_BORDER_WIDTH
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 
 @Composable
 fun PlanTemplate(
     modifier : Modifier,
     selectedGoals : ArrayList<Goal>,
     removeGoalFromPlan: (goal : Goal) -> Unit,
+    planDuration : Double,
+    onTaskWeightChanged: (Goal, Task, Double) -> Unit
 ){
-    Box(modifier = modifier.fillMaxWidth()
-        .border(
-            width = 1.dp,
-            color = TextColor,
-            shape = RoundedCornerShape(16.dp)
-        )) {
-
-        LazyColumn(
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(BackgroundColor)
+            .border(
+                width = SMALL_BORDER_WIDTH,
+                color = TextColor,
+                shape = RoundedCornerShape(CORNER_RADIUS)
+            )
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(vertical = MEDIUM_PADDING, horizontal = SMALL_PADDING),
+            verticalArrangement = Arrangement.spacedBy(SMALL_PADDING),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(selectedGoals) { goal ->
+            selectedGoals.forEach { goal ->
                 GoalItem(
                     goal = goal,
-                    removeGoalFromPlan = removeGoalFromPlan
+                    removeGoalFromPlan = removeGoalFromPlan,
+                    planDuration = planDuration,
+                    onTaskWeightChanged = onTaskWeightChanged
                 )
             }
         }
     }
-
 }
 
 @Preview
@@ -52,13 +63,11 @@ fun PlanTemplatePreview(){
     PlanTemplate(
         modifier = Modifier,
         selectedGoals = arrayListOf(
-            Goal(
-            name = "Goal1"
-            ),
-            Goal(
-                name = "Goal2"
-            )
+            Goal(name = "Goal1"),
+            Goal(name = "Goal2")
         ),
-        removeGoalFromPlan = {}
+        removeGoalFromPlan = {},
+        planDuration = 0.0,
+        onTaskWeightChanged = {goal, task, weight ->  }
     )
 }

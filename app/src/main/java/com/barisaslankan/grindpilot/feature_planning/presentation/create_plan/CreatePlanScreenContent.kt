@@ -39,9 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.barisaslankan.grindpilot.core.components.IconButtonWithText
-import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
 import com.barisaslankan.grindpilot.core.ui.theme.HintColor
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
@@ -49,8 +47,10 @@ import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.TextColor
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.DurationType
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
+import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.component.DayPicker
 import com.barisaslankan.grindpilot.feature_planning.presentation.create_plan.component.PlanTemplate
 
@@ -76,8 +76,9 @@ fun CreatePlanScreenContent(
     displayedDurationType: String,
     displayedDurationTypeChanged: (String) -> Unit,
     isBottomSheetExpanded : Boolean,
-    onBottomSheetExpanded : (Boolean) -> Unit
-    ){
+    onBottomSheetExpanded : (Boolean) -> Unit,
+    onTaskWeightChanged: (Goal, Task, Double) -> Unit
+){
 
     val modalBottomSheetState = rememberModalBottomSheetState()
 
@@ -87,12 +88,10 @@ fun CreatePlanScreenContent(
             .background(BackgroundColor)
             .padding(MEDIUM_PADDING)
     ) {
-
         Column(
             modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING)
+            verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING),
         ) {
-
             Row(
                 modifier = modifier
             ) {
@@ -111,7 +110,6 @@ fun CreatePlanScreenContent(
                     )
                 }
                 Spacer(modifier = modifier.weight(1f))
-
                 IconButton(
                     colors = (
                             IconButtonColors(
@@ -164,7 +162,7 @@ fun CreatePlanScreenContent(
                 Spacer(modifier = Modifier.weight(2f))
 
                 TextField(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1.5f),
                     textStyle = Typography.bodyMedium,
                     colors = TextFieldDefaults.colors(
                         unfocusedTextColor = TextColor,
@@ -210,7 +208,10 @@ fun CreatePlanScreenContent(
                    .weight(1f)
                    .background(BackgroundColor),
                selectedGoals = selectedGoals,
-               removeGoalFromPlan = removeGoalFromPlan
+               removeGoalFromPlan = removeGoalFromPlan,
+               //planduration daha farklı hesaplanacak. buraya dön.
+               planDuration = durationText.toDouble(),
+               onTaskWeightChanged = onTaskWeightChanged
            )
 
             OutlinedButton(
@@ -225,7 +226,7 @@ fun CreatePlanScreenContent(
                 ),
                 content = {
                     Text(
-                        text = "Upload Plan",
+                        text = "Save Plan",
                         style = Typography.titleSmall,
                         color = BackgroundColor
                     )
@@ -238,8 +239,8 @@ fun CreatePlanScreenContent(
                     sheetState = modalBottomSheetState,
                     onDismissRequest = { onBottomSheetExpanded(false) }) {
                     LazyColumn(
-                        modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(vertical = MEDIUM_PADDING, horizontal = SMALL_PADDING),
+                        verticalArrangement = Arrangement.spacedBy(SMALL_PADDING),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ){
                         items(goals){goal ->
@@ -247,8 +248,8 @@ fun CreatePlanScreenContent(
                                 modifier = Modifier.clickable {
                                     addGoalToPlan(goal)
                                     onBottomSheetExpanded(false) },
-                                text = "Upload Plan",
-                                style = Typography.titleSmall,
+                                text = goal.name,
+                                style = Typography.bodyMedium,
                                 color = BackgroundColor
                             )
                         }
@@ -343,7 +344,7 @@ fun CreatePlanScreenContentPreview(){
         onNameChanged = {},
         isDurationTypeExpanded = false,
         onDurationTypeChanged = {},
-        durationText = "",
+        durationText = "0.0",
         onDurationTextChanged = {},
         selectedDays = arrayListOf(),
         onDayPicked = {},
@@ -351,6 +352,7 @@ fun CreatePlanScreenContentPreview(){
         displayedDurationType = DurationType.WEEKS.name,
         displayedDurationTypeChanged = {},
         isBottomSheetExpanded = false,
-        onBottomSheetExpanded = {}
+        onBottomSheetExpanded = {},
+        onTaskWeightChanged = {goal, task, weight -> }
     )
 }

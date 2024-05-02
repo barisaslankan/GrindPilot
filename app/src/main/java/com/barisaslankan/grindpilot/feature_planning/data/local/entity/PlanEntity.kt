@@ -10,5 +10,6 @@ data class PlanEntity(
     val id : String = "",
     val name : String = "",
     val goals : List<String> = arrayListOf(),
-    val days : List<String> = arrayListOf()
+    val days : List<String> = arrayListOf(),
+    val planDuration: Double = 0.0
 )
