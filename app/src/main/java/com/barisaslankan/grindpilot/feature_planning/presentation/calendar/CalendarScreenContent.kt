@@ -18,22 +18,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.barisaslankan.grindpilot.core.ui.theme.BackgroundColor
+import com.barisaslankan.grindpilot.core.ui.theme.CORNER_RADIUS
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_BORDER_WIDTH
 import com.barisaslankan.grindpilot.core.ui.theme.MEDIUM_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.OrangeGP
+import com.barisaslankan.grindpilot.core.ui.theme.SMALL_BORDER_WIDTH
 import com.barisaslankan.grindpilot.core.ui.theme.SMALL_PADDING
 import com.barisaslankan.grindpilot.core.ui.theme.Typography
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
@@ -41,31 +43,44 @@ import com.barisaslankan.grindpilot.feature_planning.domain.model.Plan
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarDayItem
 import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.CalendarItem
+import com.barisaslankan.grindpilot.feature_planning.presentation.calendar.components.DaysOfWeekTitle
 import com.kizitonwose.calendar.compose.VerticalCalendar
+import com.kizitonwose.calendar.compose.rememberCalendarState
+import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.daysOfWeek
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
+import java.time.YearMonth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalendarScreenContent(
     modifier: Modifier,
     dailyPlan : Plan,
-    datePickerState: DatePickerState,
     navigateToPlans : () -> Unit,
     navigateToSetGoal : () -> Unit,
     calculateProgress : (Goal) -> Float,
-    onTaskCheckedChanged : (Boolean, Task, Goal) -> Unit
+    onTaskCheckedChanged : (Boolean, Task, Goal) -> Unit,
+    onCalendarDayClicked : (CalendarDay) -> Unit
 ){
+    val currentMonth = remember { YearMonth.now() }
+    val firstDayOfWeek  = remember { firstDayOfWeekFromLocale() }
+    val daysOfWeek = remember{daysOfWeek()}
+    
+    val state = rememberCalendarState(
+        firstVisibleMonth = currentMonth,
+        firstDayOfWeek = firstDayOfWeek
+    )
+
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(BackgroundColor)
     ) {
-
         Column(
             modifier = modifier
                 .padding(MEDIUM_PADDING),
             verticalArrangement = Arrangement.spacedBy(MEDIUM_PADDING)
         ) {
-
             Row(
                 modifier = modifier
             ) {
@@ -86,6 +101,7 @@ fun CalendarScreenContent(
                         contentDescription = "Plans Button"
                     )
                 }
+
                 Spacer(modifier = Modifier.width(MEDIUM_PADDING))
 
                 IconButton(
@@ -105,24 +121,34 @@ fun CalendarScreenContent(
                 }
             }
 
-            Box(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .border(
-                        color = OrangeGP,
-                        width = MEDIUM_BORDER_WIDTH,
-                        shape = RoundedCornerShape(MEDIUM_PADDING)
-                    )
-                    .weight(2.5f),
-                contentAlignment = Alignment.Center,
-            ) {
-
-                VerticalCalendar(
-                    dayContent = {calendarDay ->
-                    CalendarDayItem(day = calendarDay)
-                })
-            }
-
+            VerticalCalendar(
+                state = state,
+                dayContent = { CalendarDayItem(
+                    day = it,
+                    onCalendarDayClicked = onCalendarDayClicked
+                ) },
+                monthHeader = { DaysOfWeekTitle(daysOfWeek = daysOfWeek) },
+                monthBody = { _, content ->
+                    Box(
+                        modifier = Modifier.background(BackgroundColor)
+                    ) {
+                        content()
+                    }
+                    },
+                    monthContainer = { _, container ->
+                        Box(
+                            modifier = modifier
+                                .padding(SMALL_PADDING)
+                                .clip(shape = RoundedCornerShape(CORNER_RADIUS))
+                                .border(
+                                    color = OrangeGP,
+                                    width = SMALL_BORDER_WIDTH,
+                                    shape = RoundedCornerShape(CORNER_RADIUS)
+                                )
+                        ) {
+                            container()
+                        }
+                    })
             Box(
                 modifier = modifier
                     .fillMaxWidth()
@@ -184,11 +210,11 @@ fun CalendarScreenContent(
 fun CalendarScreenPreview(){
     CalendarScreenContent(
         modifier = Modifier,
-        datePickerState = rememberDatePickerState(),
         navigateToPlans = {},
         navigateToSetGoal = {},
         calculateProgress = {0.4f},
         dailyPlan = Plan(),
-        onTaskCheckedChanged = { isChecked , task, goal -> }
+        onTaskCheckedChanged = { isChecked , task, goal -> },
+        onCalendarDayClicked = {}
     )
 }

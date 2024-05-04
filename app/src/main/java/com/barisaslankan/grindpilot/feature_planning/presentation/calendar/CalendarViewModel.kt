@@ -7,6 +7,7 @@ import com.barisaslankan.grindpilot.feature_planning.domain.model.Day
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Goal
 import com.barisaslankan.grindpilot.feature_planning.domain.model.Task
 import com.barisaslankan.grindpilot.feature_planning.domain.repository.PlanningRepository
+import com.kizitonwose.calendar.core.CalendarDay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,8 +41,8 @@ class CalendarViewModel @Inject constructor(
                             val todaysPlan = it.firstOrNull {plan ->
                                 plan.days.contains(today)
                             }
-                            _state.update {
-                                it.copy(isLoading = false, todaysPlan = todaysPlan)
+                            _state.update {state ->
+                                state.copy(isLoading = false, todaysPlan = todaysPlan, plans = ArrayList(plans))
                             }
                         }
                     }
@@ -68,7 +69,18 @@ class CalendarViewModel @Inject constructor(
             }
             planningRepository.updateGoals()
         }
+    }
 
+    fun onCalendarDayClicked(calendarDay : CalendarDay){
+        val selectedDay = calendarDay.date.dayOfWeek.toString().uppercase(Locale.getDefault())
+        _state.value.plans?.let {
+            val selectedPlan = it.firstOrNull{plan ->
+                plan.days.contains(selectedDay)
+            }
+            _state.update {state ->
+                state.copy(isLoading = false, todaysPlan = selectedPlan)
+            }
+        }
     }
 
     private fun getCurrentDay(): Day {

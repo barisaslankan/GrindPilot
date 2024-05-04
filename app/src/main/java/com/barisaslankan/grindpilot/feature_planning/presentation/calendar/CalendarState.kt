@@ -8,5 +8,5 @@ data class CalendarState(
     val error : String? = null,
     val todaysPlan : Plan? = null,
     val plans : ArrayList<Plan>? = null,
-    val goals : ArrayList<Goal>? = null
+    val goals : ArrayList<Goal>? = null,
 )
